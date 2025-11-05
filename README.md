@@ -140,7 +140,7 @@ src
 
 ```bash
 # Clone repository
-git clone https://github.com/nguyentrongbut/truyenhayy.git
+git clone https://github.com/PTG12032001/truyenhayy.git
 cd truyenhayy
 
 # Install dependencies
