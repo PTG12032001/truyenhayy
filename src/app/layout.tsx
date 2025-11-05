@@ -20,6 +20,9 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 // ** PostHog
 import { PostHogProvider } from '@/app/providers';
 
+// ** Google Analytics
+import GoogleAnalytics from '@/components/common/GoogleAnalytics';
+
 const montserrat = Montserrat({
     subsets: ['latin'],
     weight: ['400', '500', '600', '700'],
@@ -152,6 +155,7 @@ export default function RootLayout({
             <body
                 className={`${montserrat.className} antialiased select-none overflow-x-hidden`}
             >
+                <GoogleAnalytics />
                 <PostHogProvider>
                     <ThemeProvider
                         attribute="class"
