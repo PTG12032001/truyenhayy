@@ -18,14 +18,14 @@ export async function generateMetadata({
 }) {
     const keyword = (await searchParams).keyword || '';
     return {
-        title: `${keyword} - Kết quả tìm kiếm | Ztruyện`,
-        description: `Tìm truyện tranh - Tất cả truyện đều có thể tìm thấy tại Ztruyện`,
+        title: `${keyword} - Kết quả tìm kiếm | Truyenhayy`,
+        description: `Tìm truyện tranh - Tất cả truyện đều có thể tìm thấy tại Truyenhayy`,
         keywords: [
             `tìm truyện tranh`,
             `tìm truyện tiếng việt`,
             `đọc truyện tranh`,
-            `tìm ${keyword} với ztruyen.io.vn`,
-            `kết quả tìm kiếm ${keyword} từ ztruyen.io.vn`,
+            `tìm ${keyword} với truyenhayy.online`,
+            `kết quả tìm kiếm ${keyword} từ truyenhayy.online`,
         ],
         alternates: {
             canonical: `/tim-kiem?keyword=${keyword}`,
@@ -34,8 +34,8 @@ export async function generateMetadata({
             },
         },
         openGraph: {
-            title: `${keyword} - Kết quả tìm kiếm | Ztruyện`,
-            description: `Tìm truyện tranh - Tất cả truyện đều có thể tìm thấy tại Ztruyện`,
+            title: `${keyword} - Kết quả tìm kiếm | Truyenhayy`,
+            description: `Tìm truyện tranh - Tất cả truyện đều có thể tìm thấy tại Truyenhayy`,
             images: [
                 {
                     url: '/logo-all.png',

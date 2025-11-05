@@ -1,20 +1,30 @@
-# Ztruyen v1.0.0
+# Truyenhayy v2.0.0
 
 <div align="center">
-  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React">
+  <img src="https://img.shields.io/badge/React-20232A?style- Online manga reading powered by OTruyen API.
+- Clean, user-friendly modern gradient interface with glassmorphism effects.
+- Story detail pages, complete chapter lists, and chapter image viewer.
+- Basic search functionality and category browsing.
+- Automatically saves the manga and chapters you've read.
+    - Added ability to **bulk delete reading history** for easier management.
+
+---
+
+## 🔍 SEO Improvements
+
+- Optimized SEO with the **top keyword "truyenhayy", "doc truyen", "truyen tranh", etc** to improve visibility on Google.ge&logo=react&logoColor=61DAFB" alt="React">
   <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js">
   <img src="https://img.shields.io/badge/shadcn%2Fui-000000?style=for-the-badge&logo=radix-ui&logoColor=white" alt="shadcn/ui">
 </div>
 
 ## 🚀 Introduction
 
-We are excited to announce the **first official release (v1.0.0)** of **zTruyen**, now available
-at [ztruyen.io.vn](https://ztruyen.io.vn).  
-The project was created to provide a smooth, simple, and enjoyable online manga reading experience.
+We are excited to announce the **version 2.0** of **Truyenhayy**, now available
+at [truyenhayy.online](https://truyenhayy.online).  
+The project was created to provide a smooth, simple, and enjoyable online manga reading experience with a unique modern design.
 
 - **Data Source**: powered by [OTruyen API](https://docs.otruyenapi.com/).
-- **UI Design**: the initial interface takes inspiration from **BilibiliManga** to quickly validate and optimize the
-  reading flow.
+- **UI Design**: Complete custom redesign with modern gradient aesthetics, glassmorphism effects, and smooth animations.
 
 ---
 
@@ -114,7 +124,7 @@ src
 
 ## 🔍 SEO Improvements
 
-- Optimized SEO with the **top keyword "ztruyen", "truyen echhi", etc, ...** to improve visibility on Google.
+- Optimized SEO with the **top keyword "truyenhayy", "truyen tranh", "manhwa", "manga", etc, ...** to improve visibility on Google.
 - Updated meta tags and heading structure for better search engine indexing.
 
 ---
@@ -130,8 +140,8 @@ src
 
 ```bash
 # Clone repository
-git clone https://github.com/nguyentrongbut/ztruyen.git
-cd ztruyen
+git clone https://github.com/nguyentrongbut/truyenhayy.git
+cd truyenhayy
 
 # Install dependencies
 npm install
@@ -174,17 +184,17 @@ NEXT_PUBLIC_VERIFICATION_GOOGLE=YOUR_VERIFICATION_GOOGLE
 
 ## 📌 Notes
 
-- This is the **foundation release**: advanced features such as user accounts, real-time comments, performance
-  optimizations and more will be added in future updates.
+- This is **version 2.0** with complete UI/UX overhaul: advanced features such as user accounts, real-time comments, and more will be added in future updates.
 - All manga data is fetched directly from the OTruyen API.
+- Design features: Purple-pink-blue gradient theme, glassmorphism effects, smooth transitions, dark mode default.
 
 ---
 
 ## 🙌 Credits
 
 - **OTruyen API** — primary data provider.
-- **BilibiliManga** — inspiration for the first version of the UI/UX.
+- **Modern Design System** — Custom gradient aesthetics with Tailwind CSS.
 
 ---
 
-🌐 Official website: [ztruyen.io.vn](https://ztruyen.io.vn)
+🌐 Official website: [truyenhayy.online](https://truyenhayy.online)

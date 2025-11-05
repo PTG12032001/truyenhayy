@@ -11,7 +11,7 @@ import getIdFromUrl from '@/utils/getIdFromUrl';
 import { historyService } from '@/utils/localStorage/historyService';
 
 interface IScrollSaverProps {
-    numberOfChapters: number;
+    numberOfChapters: string;
     chapterName: string;
     currentUrl: string;
     slug: string;
@@ -40,7 +40,11 @@ const ScrollSaver = ({ numberOfChapters, chapterName, currentUrl, slug, image }:
             };
 
             requestAnimationFrame(restoreScroll);
-        } catch {}
+        } catch (error) {
+            if (process.env.NODE_ENV === 'development') {
+                console.error('Failed to restore scroll position:', error);
+            }
+        }
     }, [_id]);
 
     // Track scroll
@@ -60,7 +64,7 @@ const ScrollSaver = ({ numberOfChapters, chapterName, currentUrl, slug, image }:
             _id,
             slug,
             image,
-            chapter: numberOfChapters.toString(),
+            chapter: numberOfChapters,
             name: chapterName,
             path: pathname,
             position: scrollY.current,
@@ -74,7 +78,7 @@ const ScrollSaver = ({ numberOfChapters, chapterName, currentUrl, slug, image }:
         return () => {
             saveHistory();
         };
-    }, [pathname]);
+    }, [pathname, saveHistory]);
 
     // Save on beforeunload
     useEffect(() => {

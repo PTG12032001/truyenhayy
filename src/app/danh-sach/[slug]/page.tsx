@@ -30,8 +30,8 @@ export async function generateMetadata({
     const status = res?.data?.titlePage;
 
     return {
-        title: `${status} - ztruyen.io.vn`,
-        description: `${status} tại ztruyen.io.vn`,
+        title: `${status} - truyenhayy.online`,
+        description: `${status} tại truyenhayy.online`,
         keywords: [
             `Truyện tranh`,
             `manga`,
@@ -46,8 +46,8 @@ export async function generateMetadata({
             },
         },
         openGraph: {
-            title: `Truyện ${status} - ztruyen.io.vn`,
-            description: `Truyện ${status} tại ztruyen.io.vn`,
+            title: `Truyện ${status} - truyenhayy.online`,
+            description: `Truyện ${status} tại truyenhayy.online`,
             images: [
                 {
                     url: '/logo-all.png',
@@ -71,14 +71,17 @@ const Status = async ({
     const pageQuery =
         parseInt(((await searchParams).page as string) || '1') || 1;
     return (
-       <div>
-           <Suspense fallback={<DynamicPageStatusSkeleton title/>}>
-               <DynamicPageStatus
-                   category={`danh-sach/${slug}`}
-                   pageQuery={pageQuery}
-                   title={true}
-               ></DynamicPageStatus>
-           </Suspense>
+       <div className="relative">
+           <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-pink-500/5 to-blue-500/5 pointer-events-none" />
+           <div className="relative">
+               <Suspense fallback={<DynamicPageStatusSkeleton title/>}>
+                   <DynamicPageStatus
+                       category={`danh-sach/${slug}`}
+                       pageQuery={pageQuery}
+                       title={true}
+                   ></DynamicPageStatus>
+               </Suspense>
+           </div>
        </div>
     );
 };

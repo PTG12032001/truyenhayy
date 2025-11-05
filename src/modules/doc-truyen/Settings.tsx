@@ -82,8 +82,11 @@ const Settings = ({
 
     // Slider
     const scrollToImage = (index: number) => {
-        if (imgRefs.current[index]) {
-            imgRefs.current[index]?.scrollIntoView();
+        // Điều chỉnh index vì ảnh đầu tiên (index 0) bị bỏ
+        // Khi muốn đến trang 1 (index 0), cần scroll đến ảnh thứ 2 (index 1)
+        const actualIndex = index + 1;
+        if (imgRefs.current[actualIndex]) {
+            imgRefs.current[actualIndex]?.scrollIntoView();
         }
     };
 
@@ -110,7 +113,10 @@ const Settings = ({
                     }
                 });
 
-                setCurrentImageIndex(closestIndex);
+                // Điều chỉnh index nếu bỏ ảnh đầu tiên (index 0 = null)
+                // Nếu ảnh gần nhất là index 1, hiển thị là trang 1
+                const displayIndex = closestIndex > 0 ? closestIndex - 1 : 0;
+                setCurrentImageIndex(displayIndex);
             }
         };
 
@@ -219,35 +225,41 @@ const Settings = ({
         <div
             className={`w-full absolute bottom-0 flex flex-col items-center left-1/2 -translate-x-1/2 transition-opacity duration-500 ease-in-out`}
         >
-            <div className="bg-secondary border-[#3e3e3e] rounded-[40px] text-white/90 flex items-center justify-center px-5 max-w-max pt-1 gap-1.5">
-                {!isMd && (
-                    <Link
-                        href={`/truyen-tranh/${slugChapter}`}
-                        className="flex flex-col items-center gap-1 p-2 cursor-pointer text-[#777]"
-                    >
-                        <BookOpenText className="size-5" />
-                        <span className="text-white text-xs">
-                            Chi tiết truyện
-                        </span>
-                    </Link>
-                )}
+            {/* Modern Top Action Bar */}
+            <div className="relative bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-blue-500/10 backdrop-blur-xl border border-purple-500/20 rounded-3xl shadow-2xl shadow-purple-500/10 px-2 py-2 mb-4">
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-600/5 via-pink-600/5 to-blue-600/5 rounded-3xl pointer-events-none" />
+                
+                <div className="relative flex items-center gap-2">
+                    {!isMd && (
+                        <Link
+                            href={`/truyen-tranh/${slugChapter}`}
+                            className="group flex flex-col items-center gap-1 px-4 py-2 rounded-2xl hover:bg-gradient-to-br hover:from-purple-500/20 hover:to-pink-500/20 transition-all duration-300"
+                        >
+                            <BookOpenText className="size-5 text-purple-600 group-hover:text-pink-600 transition-colors duration-300" />
+                            <span className="text-xs font-medium bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text group-hover:text-transparent transition-all duration-300">
+                                Chi tiết
+                            </span>
+                        </Link>
+                    )}
 
-                {/* Menu */}
-                <DropdownMenu
-                    open={isDropdownOpen}
-                    onOpenChange={(open) => {
-                        setIsDropdownOpen(open);
-                        if (open) {
-                            requestAnimationFrame(() => scrollToActive());
-                        }
-                    }}
-                >
-                    <DropdownMenuTrigger asChild>
-                        <div className="flex flex-col items-center gap-1 p-2 cursor-pointer ">
-                            <Menu className="size-5 text-[#777]" />
-                            <span className="text-xs">Mục lục</span>
-                        </div>
-                    </DropdownMenuTrigger>
+                    {/* Menu Dropdown */}
+                    <DropdownMenu
+                        open={isDropdownOpen}
+                        onOpenChange={(open) => {
+                            setIsDropdownOpen(open);
+                            if (open) {
+                                requestAnimationFrame(() => scrollToActive());
+                            }
+                        }}
+                    >
+                        <DropdownMenuTrigger asChild>
+                            <div className="group flex flex-col items-center gap-1 px-4 py-2 rounded-2xl cursor-pointer hover:bg-gradient-to-br hover:from-purple-500/20 hover:to-pink-500/20 transition-all duration-300">
+                                <Menu className="size-5 text-purple-600 group-hover:text-pink-600 transition-colors duration-300" />
+                                <span className="text-xs font-medium bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text group-hover:text-transparent transition-all duration-300">
+                                    Mục lục
+                                </span>
+                            </div>
+                        </DropdownMenuTrigger>
                     <DropdownMenuContent asChild>
                         <div className="p-4 rounded-2xl w-[240px] sm:w-[280px] !bg-[#272727e6] border-none text-white mb-2">
                             <div className="text-sm sm:text-base mb-4 ml-3">{`Tất cả các chương (${listChapter.length})`}</div>
@@ -282,82 +294,117 @@ const Settings = ({
                     </DropdownMenuContent>
                 </DropdownMenu>
 
-                {/*Full Screen*/}
-                {isMd && (
-                    <div
-                        className="flex flex-col items-center gap-1 p-2 cursor-pointer"
-                        onClick={toggleFullScreen}
-                    >
-                        {isFullScreen ? (
-                            <>
-                                <Shrink className="size-5" />
-                                <span className="text-white text-xs">
-                                    Thoát chế độ toàn màn hình
-                                </span>
-                            </>
-                        ) : (
-                            <>
-                                <Expand className="text-[#777] size-5" />
-                                <span className="text-xs">
-                                    Xem toàn màn hình{' '}
-                                </span>
-                            </>
-                        )}
-                    </div>
-                )}
+                    {/*Full Screen*/}
+                    {isMd && (
+                        <div
+                            className="group flex flex-col items-center gap-1 px-4 py-2 rounded-2xl cursor-pointer hover:bg-gradient-to-br hover:from-purple-500/20 hover:to-pink-500/20 transition-all duration-300"
+                            onClick={toggleFullScreen}
+                        >
+                            {isFullScreen ? (
+                                <>
+                                    <Shrink className="size-5 text-purple-600 group-hover:text-pink-600 transition-colors duration-300" />
+                                    <span className="text-xs font-medium bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text group-hover:text-transparent transition-all duration-300">
+                                        Thoát
+                                    </span>
+                                </>
+                            ) : (
+                                <>
+                                    <Expand className="size-5 text-purple-600 group-hover:text-pink-600 transition-colors duration-300" />
+                                    <span className="text-xs font-medium bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text group-hover:text-transparent transition-all duration-300">
+                                        Toàn màn
+                                    </span>
+                                </>
+                            )}
+                        </div>
+                    )}
+                </div>
             </div>
 
-            {/*Slider*/}
-            <div className="mt-5 p-3 md:p-0 md:my-5 flex flex-1 w-full md:w-[600px] md:min-w-[120px] bg-secondary border-[#3e3e3e] md:rounded-[40px] text-white items-center justify-between gap-4 relative">
-                {prevChapter ? (
-                    <Link
-                        href={`/doc-truyen/${getChapterName(currentUrl)}-chuong-${prevChapter?.chapter_name}-${getIdFromUrl(prevChapter?.chapter_api_data, '/')}.html`}
-                        className="p-2"
-                    >
-                        <ChevronLeft className="size-6" />
-                    </Link>
-                ) : (
-                    <span className="p-2 opacity-50">
-                        <ChevronLeft className="size-6" />
-                    </span>
-                )}
-                <span className="text-[#777] text-sm flex-shrink-0">{`${currentImageIndex + 1} / ${totalImages}`}</span>
-                <Slider
-                    min={1}
-                    max={totalImages}
-                    step={1}
-                    value={[currentImageIndex + 1]}
-                    onValueChange={(value) =>
-                        handleSliderChange({ target: { value: value[0] } })
-                    }
-                    className="cursor-pointer"
-                />
-                {nextChapter ? (
-                    <Link
-                        href={`/doc-truyen/${getChapterName(currentUrl)}-chuong-${nextChapter?.chapter_name}-${getIdFromUrl(nextChapter?.chapter_api_data, '/')}.html`}
-                        className="p-2"
-                    >
-                        <ChevronRight className="size-6" />
-                    </Link>
-                ) : (
-                    <span className="p-2 opacity-50">
-                        <ChevronRight className="size-6" />
-                    </span>
-                )}
-                <div className="absolute bottom-0 -left-[140px] hidden lg:block">
-                    <div className="bg-secondary border-[#3e3e3e] rounded-[40px] flex text-white w-[120px] items-center justify-between">
-                        <span
-                            className="p-3 cursor-pointer"
-                            onClick={handlePlusChange}
-                        >
-                            <Plus className="size-4" />
-                        </span>
-                        <span className="text-[13px] text-[#777]">{`${imgWidth}%`}</span>
-                        <span
-                            className="p-3 cursor-pointer"
-                            onClick={handleMinusChange}
-                        >
-                            <Minus className="size-4" />
+            {/* Modern Navigation Slider */}
+            <div className="relative w-full md:w-[700px] lg:w-[800px]">
+                {/* Zoom controls - Left side */}
+                <div className="absolute -left-4 lg:-left-36 top-1/2 -translate-y-1/2 hidden lg:block">
+                    <div className="relative bg-gradient-to-br from-purple-500/10 via-pink-500/10 to-blue-500/10 backdrop-blur-xl border border-purple-500/20 rounded-2xl shadow-2xl shadow-purple-500/10 p-2">
+                        <div className="flex items-center gap-2">
+                            <button
+                                className="p-2 rounded-xl hover:bg-gradient-to-br hover:from-purple-500/20 hover:to-pink-500/20 transition-all duration-300 group"
+                                onClick={handlePlusChange}
+                            >
+                                <Plus className="size-4 text-purple-600 group-hover:text-pink-600 transition-colors duration-300" />
+                            </button>
+                            <span className="text-sm font-medium bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent min-w-[45px] text-center">
+                                {imgWidth}%
+                            </span>
+                            <button
+                                className="p-2 rounded-xl hover:bg-gradient-to-br hover:from-purple-500/20 hover:to-pink-500/20 transition-all duration-300 group"
+                                onClick={handleMinusChange}
+                            >
+                                <Minus className="size-4 text-purple-600 group-hover:text-pink-600 transition-colors duration-300" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Main slider bar */}
+                <div className="relative bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-blue-500/10 backdrop-blur-xl border border-purple-500/20 rounded-3xl shadow-2xl shadow-purple-500/10 p-4 md:p-6">
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600/5 via-pink-600/5 to-blue-600/5 rounded-3xl pointer-events-none" />
+                    
+                    <div className="relative flex items-center gap-4">
+                        {/* Previous chapter */}
+                        {prevChapter ? (
+                            <Link
+                                href={`/doc-truyen/${getChapterName(currentUrl)}-chuong-${prevChapter?.chapter_name}-${getIdFromUrl(prevChapter?.chapter_api_data, '/')}.html`}
+                                className="p-2 rounded-xl hover:bg-gradient-to-br hover:from-purple-500/20 hover:to-pink-500/20 transition-all duration-300 group"
+                            >
+                                <ChevronLeft className="size-6 text-purple-600 group-hover:text-pink-600 transition-colors duration-300" />
+                            </Link>
+                        ) : (
+                            <span className="p-2 opacity-30">
+                                <ChevronLeft className="size-6" />
+                            </span>
+                        )}
+
+                        {/* Page counter */}
+                        <div className="flex-shrink-0 px-3 py-1 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20">
+                            <span className="text-sm font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                                {currentImageIndex + 1} / {totalImages}
+                            </span>
+                        </div>
+
+                        {/* Slider */}
+                        <div className="flex-1">
+                            <Slider
+                                min={1}
+                                max={totalImages}
+                                step={1}
+                                value={[currentImageIndex + 1]}
+                                onValueChange={(value) =>
+                                    handleSliderChange({ target: { value: value[0] } })
+                                }
+                                className="cursor-pointer"
+                            />
+                        </div>
+
+                        {/* Next chapter */}
+                        {nextChapter ? (
+                            <Link
+                                href={`/doc-truyen/${getChapterName(currentUrl)}-chuong-${nextChapter?.chapter_name}-${getIdFromUrl(nextChapter?.chapter_api_data, '/')}.html`}
+                                className="p-2 rounded-xl hover:bg-gradient-to-br hover:from-purple-500/20 hover:to-pink-500/20 transition-all duration-300 group"
+                            >
+                                <ChevronRight className="size-6 text-purple-600 group-hover:text-pink-600 transition-colors duration-300" />
+                            </Link>
+                        ) : (
+                            <span className="p-2 opacity-30">
+                                <ChevronRight className="size-6" />
+                            </span>
+                        )}
+                    </div>
+
+                    {/* Progress percentage */}
+                    <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
+                        <span>Tiến độ đọc</span>
+                        <span className="font-medium bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                            {Math.round(((currentImageIndex + 1) / totalImages) * 100)}%
                         </span>
                     </div>
                 </div>

@@ -12,12 +12,12 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const logoVariants = cva(
-    'font-bold first-letter:uppercase first-letter:text-primaryColor',
+    'font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent hover:from-pink-600 hover:via-purple-600 hover:to-blue-600 transition-all duration-300',
     {
         variants: {
             size: {
-                default: 'text-[15px] first-letter:text-xl',
-                lg: 'text-lg md:text-[25px] first-letter:text-2xl md:first-letter:text-4xl',
+                default: 'text-lg',
+                lg: 'text-xl md:text-3xl',
             },
         },
         defaultVariants: {
@@ -26,13 +26,6 @@ const logoVariants = cva(
     }
 );
 
-const logoSizes: Record<'default' | 'lg', { width: number; height: number }> = {
-    default: { width: 32, height: 32 },
-    lg: { width: 50, height: 50 },
-};
-
-const websiteName = 'ztruyện';
-
 export interface LogoProps
     extends React.HTMLAttributes<HTMLParagraphElement>,
         VariantProps<typeof logoVariants> {}
@@ -40,23 +33,38 @@ export interface LogoProps
 const Logo = React.forwardRef<HTMLParagraphElement, LogoProps>(
     ({ className, size = 'default', ...props }, ref) => {
         const safeSize = (size ?? 'default') as 'default' | 'lg';
-        const { width, height } = logoSizes[safeSize];
         return (
-            <Link href="/" className="inline-flex items-center">
-                <Image
-                    src='/logo.png'
-                    width={width}
-                    height={height}
-                    alt={websiteName}
-                    priority
-                />
-                <p
-                    ref={ref}
-                    className={cn(logoVariants({ size }), className)}
-                    {...props}
-                >
-                    {websiteName}
-                </p>
+            <Link href="/" className="inline-flex items-center gap-2 group">
+                <div className="relative">
+                    {/* Custom Logo */}
+                    <div className={cn(
+                        "rounded-lg overflow-hidden transition-all duration-300 group-hover:scale-110",
+                        safeSize === 'lg' ? 'w-12 h-12' : 'w-10 h-10'
+                    )}>
+                        <Image
+                            src="/logothayy.png"
+                            alt="Truyenhayy Logo"
+                            width={safeSize === 'lg' ? 48 : 40}
+                            height={safeSize === 'lg' ? 48 : 40}
+                            className="w-full h-full object-contain"
+                            priority
+                        />
+                    </div>
+                </div>
+                <div className="flex flex-col">
+                    <p
+                        ref={ref}
+                        className={cn(logoVariants({ size }), className)}
+                        {...props}
+                    >
+                        Truyenhayy
+                    </p>
+                    {safeSize === 'lg' && (
+                        <span className="text-xs text-muted-foreground -mt-1">
+                            .online
+                        </span>
+                    )}
+                </div>
             </Link>
         );
     }

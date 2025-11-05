@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { ButtonProps, buttonVariants } from '@/components/ui/button';
+import { ButtonProps } from '@/components/ui/button';
 import Link from 'next/link';
 
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
@@ -43,16 +43,15 @@ type PaginationLinkProps = {
 const PaginationLink = ({
     className,
     isActive,
-    shape = 'squareRounded',
     ...props
 }: PaginationLinkProps) => (
     <Link
         aria-current={isActive ? 'page' : undefined}
         className={cn(
-            buttonVariants({
-                variant: isActive ? 'primary' : 'ghost',
-                shape,
-            }),
+            'min-w-[40px] h-10 flex items-center justify-center rounded-full font-medium transition-all duration-300',
+            isActive 
+                ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/30 scale-110' 
+                : 'hover:bg-gradient-to-r hover:from-purple-500/10 hover:to-pink-500/10 border border-transparent hover:border-purple-500/30 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text hover:text-transparent',
             className
         )}
         {...props}
@@ -67,10 +66,14 @@ const PaginationPrevious = ({
     <PaginationLink
         aria-label="Go to previous page"
         shape="default"
-        className={cn('gap-1 px-3 py-[11px] dark:border-white/20', className)}
+        className={cn(
+            'gap-2 px-4 rounded-full hover:bg-gradient-to-r hover:from-purple-500/10 hover:to-pink-500/10 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300',
+            className
+        )}
         {...props}
     >
         <ChevronLeft className="h-4 w-4" />
+        <span className="hidden sm:inline">Trước</span>
     </PaginationLink>
 );
 PaginationPrevious.displayName = 'PaginationPrevious';
@@ -82,9 +85,13 @@ const PaginationNext = ({
     <PaginationLink
         aria-label="Go to next page"
         shape="default"
-        className={cn('gap-1 px-3 py-[11px] dark:border-white/20', className)}
+        className={cn(
+            'gap-2 px-4 rounded-full hover:bg-gradient-to-r hover:from-purple-500/10 hover:to-pink-500/10 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300',
+            className
+        )}
         {...props}
     >
+        <span className="hidden sm:inline">Sau</span>
         <ChevronRight className="h-4 w-4" />
     </PaginationLink>
 );

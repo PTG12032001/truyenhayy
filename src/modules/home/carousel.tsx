@@ -21,7 +21,7 @@ import { Heading } from '@/components/typography/Heading';
 import { Button } from '@/components/ui/button';
 
 // ** utils
-import formatRelativeTime from '@/utils/formatRelativeTime';
+import ClientTimeAgo from '@/components/common/ClientTimeAgo';
 
 // ** next progress bar
 import { useRouter } from 'next-nprogress-bar';
@@ -69,29 +69,44 @@ const Carousel = ({
         <section
             className={`${
                 bgColor
-                    ? 'bg-[#f6f9ff] dark:bg-black'
-                    : 'bg-[#ffff] dark:bg-secondary'
-            }`}
+                    ? 'bg-gradient-to-b from-slate-50/50 to-background dark:from-slate-900/30 dark:to-secondary'
+                    : 'bg-gradient-to-b from-background to-background/50 dark:from-secondary dark:to-secondary/50'
+            } py-8 sm:py-12 md:py-16`}
         >
             <div className="wrapper">
-                {titleSeo ? (
-                    <Heading
-                        title={title}
-                        href={href}
-                        fontWeight="medium"
-                        size="2xl"
-                    />
-                ) : (
-                    <Heading
-                        as="h2"
-                        title={title}
-                        href={href}
-                        fontWeight="medium"
-                        size="2xl"
-                    />
-                )}
+                <header className="mb-8 sm:mb-10 md:mb-12">
+                    <div className="flex items-center justify-between">
+                        {titleSeo ? (
+                            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
+                                <a 
+                                    href={href}
+                                    className="gradient-text hover:scale-105 transition-transform duration-200 inline-flex items-center gap-3"
+                                >
+                                    <div className="w-1 h-8 sm:h-10 md:h-12 lg:h-14 bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500 rounded-full"></div>
+                                    {title}
+                                </a>
+                            </h1>
+                        ) : (
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
+                                <a 
+                                    href={href}
+                                    className="gradient-text hover:scale-105 transition-transform duration-200 inline-flex items-center gap-3"
+                                >
+                                    <div className="w-1 h-8 sm:h-10 md:h-12 lg:h-14 bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500 rounded-full"></div>
+                                    {title}
+                                </a>
+                            </h2>
+                        )}
+                        <a 
+                            href={href}
+                            className="text-sm sm:text-base text-muted-foreground hover:text-primary transition-colors duration-200 font-medium"
+                        >
+                            Xem tất cả →
+                        </a>
+                    </div>
+                </header>
 
-                <div className="relative pb-[30px] sm:pb-[40px] md:pb-[50px] lg:pb-[65px]">
+                <div className="relative">
                     <Swiper
                         onBeforeInit={(swiper) => {
                             swiperRef.current = swiper;
@@ -128,9 +143,9 @@ const Carousel = ({
                     >
                         {displayData.map((item, i) => (
                             <SwiperSlide key={i}>
-                                <figure className="flex flex-col">
+                                <figure className="flex flex-col group hover-lift">
                                     <div
-                                        className="relative overflow-hidden"
+                                        className="relative overflow-hidden modern-card"
                                         title={item.name}
                                     >
                                         <ComicImage
@@ -142,17 +157,16 @@ const Carousel = ({
                                             imgSize="xl"
                                         />
                                         <div
-                                            className="absolute top-0 left-0 w-full h-full rounded-[8px] cursor-pointer"
-                                            style={{
-                                                background:
-                                                    'linear-gradient(0deg,rgba(0,0,0,.8) -1.22%,transparent 35.07%)',
-                                            }}
+                                            className="absolute top-0 left-0 w-full h-full rounded-[12px] cursor-pointer bg-gradient-to-t from-black/80 via-transparent to-transparent group-hover:from-black/70 transition-all duration-300"
                                             onClick={() =>
                                                 router.push(
                                                     `/truyen-tranh/${item.slug}`
                                                 )
                                             }
                                         ></div>
+                                        
+                                        {/* Modern gradient overlay for better readability */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 via-transparent to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[12px]"></div>
                                         <ul className="absolute bottom-2.5 hidden sm:flex gap-1 sm:gap-2 md:gap-2.5 lg:gap-3 items-center overflow-hidden w-full px-2 sm:px-[12px] scroll-sub">
                                             {item.category
                                                 ?.slice(0, 2)
@@ -167,23 +181,23 @@ const Carousel = ({
                                                 ))}
                                         </ul>
                                     </div>
-                                    <figcaption className="sm:w-[180px]">
+                                    <figcaption className="sm:w-[180px] mt-3">
                                         <Heading
                                             as="h3"
                                             title={item.name}
                                             href={`/truyen-tranh/${item.slug}`}
-                                            className="mt-1.5 sm:mt-2.5 sm:mb-1"
+                                            className="mb-2 group-hover:text-primary transition-colors duration-200"
                                             size="lgResponsive"
                                         />
                                         <div
-                                            className="text-[10px] sm:text-xs md:text-sm line-clamp-1"
-                                            title={`Cập nhật ${formatRelativeTime(item.updatedAt)}`}
+                                            className="text-xs sm:text-sm line-clamp-1 text-muted-foreground"
                                         >
-                                            Cập nhật
-                                            <span className="text-orange-400 ml-1 sm:ml-2">
-                                                {formatRelativeTime(
-                                                    item.updatedAt
-                                                )}
+                                            <span className="inline-flex items-center gap-1">
+                                                <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+                                                Cập nhật
+                                                <span className="text-primary font-medium">
+                                                    <ClientTimeAgo date={item.updatedAt} />
+                                                </span>
                                             </span>
                                         </div>
                                     </figcaption>
@@ -195,31 +209,35 @@ const Carousel = ({
                     {/* Prev button */}
                     <Button
                         shape="circle"
-                        variant="lightOpacity"
                         className={`
               absolute 
               -left-6 sm:-left-[36px] z-20 top-1/3 -translate-y-1/3
+              bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-xl 
+              border-2 border-purple-500/30 hover:border-purple-500/50 
+              hover:from-purple-500/30 hover:to-pink-500/30
+              shadow-lg hover:shadow-purple-500/25
               ${atBeginning ? 'hidden' : ''}
             `}
-                        style={{ boxShadow: '0 0 19px 0 rgba(0, 0, 0, .251)' }}
                         onClick={() => swiperRef.current?.slidePrev()}
                     >
-                        <ChevronLeft className="size-6 sm:size-8 text-black" />
+                        <ChevronLeft className="size-6 sm:size-8" />
                     </Button>
 
                     {/* Next button */}
                     <Button
                         shape="circle"
-                        variant="lightOpacity"
                         className={`
               absolute
               -right-6 sm:-right-[34px] z-20 top-1/3 -translate-y-1/3
+              bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-xl 
+              border-2 border-purple-500/30 hover:border-purple-500/50 
+              hover:from-purple-500/30 hover:to-pink-500/30
+              shadow-lg hover:shadow-purple-500/25
               ${atEnd ? 'hidden' : ''}
             `}
-                        style={{ boxShadow: '0 0 19px 0 rgba(0, 0, 0, .251)' }}
                         onClick={() => swiperRef.current?.slideNext()}
                     >
-                        <ChevronRight className="size-6 sm:size-8 text-black" />
+                        <ChevronRight className="size-6 sm:size-8" />
                     </Button>
                 </div>
             </div>

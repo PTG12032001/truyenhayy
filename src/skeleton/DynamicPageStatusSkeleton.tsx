@@ -4,11 +4,9 @@ const DynamicPageStatusSkeleton = ({ title = false }: { title?: boolean }) => {
     return (
         <section className="wrapper pt-6">
             {title && (
-                <h1>
-                    <p className="mb-6">
-                        <Skeleton className="w-1/3 h-6" />
-                    </p>
-                </h1>
+                <div className="mb-6">
+                    <Skeleton className="w-1/3 h-6" />
+                </div>
             )}
 
             <div className="grid grid-cols-3 sm:w-grid-cols-4 md:w-grid-cols-5 lg:grid-cols-6 gap-4 mb-8">

@@ -1,40 +1,28 @@
 import { Skeleton } from '@/components/ui/skeleton';
 
-const ListComicSkeleton = ({ bgColor = false }: { bgColor?: boolean }) => {
+const ListComicSkeleton = () => {
     return (
-        <section
-            className={`${
-                bgColor
-                    ? 'bg-[#f6f9ff] dark:bg-black'
-                    : 'bg-[#ffff] dark:bg-secondary'
-            }`}
-        >
-            <div className="wrapper pb-[30px] sm:pb-[40px] md:pb-[50px] lg:pb-[65px]">
-                <div
-                    className="pt-[20px] pb-[16px]
-                    sm:pt-[30px] sm:pb-[20px]
-                    md:pt-[40px] md:pb-[28px]
-                    lg:pt-[60px] lg:pb-[38px]"
-                >
-                    <Skeleton className="w-[270px] sm:w-[310px] md:w-[320px] lg:w-[323px] h-6" />
+        <section className="relative py-12 sm:py-16 md:py-20 overflow-hidden">
+            {/* Match ModernCarousel transparent style */}
+            <div className="absolute inset-0 opacity-10">
+                <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full blur-3xl"></div>
+                <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-pink-600 to-blue-600 rounded-full blur-3xl"></div>
+            </div>
+            
+            <div className="wrapper relative z-10">
+                <div className="mb-8 sm:mb-10 md:mb-12">
+                    <Skeleton className="w-[270px] sm:w-[310px] md:w-[400px] h-10 rounded-xl" />
                 </div>
-                <div className="relative pb-[30px] sm:pb-[40px] md:pb-[50px] lg:pb-[65px]">
-                    <div className="grid grid-flow-col grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-1.5">
-                        {[...Array(5)].map((_, index) => (
-                            <div
-                                key={index}
-                                className={`
-                                    flex flex-col                                  
-                                `}
-                            >
-                                <figure className="flex flex-col gap-3">
-                                    <Skeleton className="aspect-[3/4] w-full rounded-lg" />
-                                    <Skeleton className="h-5 w-[80%] rounded-md" />
-                                    <Skeleton className="h-3 w-[60%] rounded-md" />
-                                </figure>
-                            </div>
-                        ))}
-                    </div>
+                <div className="flex gap-4 md:gap-6 overflow-hidden">
+                    {[...Array(6)].map((_, index) => (
+                        <div key={index} className="flex-shrink-0 w-[140px] sm:w-[160px] md:w-[180px]">
+                            <figure className="flex flex-col gap-3">
+                                <Skeleton className="aspect-[3/4] w-full rounded-2xl" />
+                                <Skeleton className="h-5 w-[85%] rounded-lg" />
+                                <Skeleton className="h-4 w-[60%] rounded-lg" />
+                            </figure>
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>

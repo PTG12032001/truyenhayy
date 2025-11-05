@@ -72,4 +72,70 @@ declare global {
         path: string;
         position: number;
     }
+
+    // API Response Types
+    interface IApiResponse<T> {
+        status: string;
+        message?: string;
+        data: T;
+    }
+
+    interface IComicDetailData {
+        seoOnPage: {
+            seoSchema: {
+                name: string;
+            };
+        };
+        item: IDetail;
+        APP_DOMAIN_CDN_IMAGE: string;
+    }
+
+    interface IGenreListData {
+        items: IGenres[];
+    }
+
+    interface IGenreDetailData {
+        item: IGenres;
+        titlePage?: string;
+        params?: {
+            pagination: {
+                totalItems: number;
+                totalItemsPerPage: number;
+                currentPage: number;
+                totalPages: number;
+            };
+        };
+    }
+
+    interface IComicListData {
+        items: IComic[];
+        params: {
+            pagination: {
+                totalItems: number;
+                totalItemsPerPage: number;
+                currentPage: number;
+                totalPages: number;
+            };
+        };
+        titlePage: string;
+        APP_DOMAIN_CDN_IMAGE: string;
+    }
+
+    interface IChapterData {
+        item: IReader;
+        domain_cdn: string;
+    }
+
+    interface ISearchData {
+        items: IComic[];
+        params: {
+            pagination: {
+                totalItems: number;
+                totalItemsPerPage: number;
+                currentPage: number;
+                totalPages: number;
+            };
+        };
+        APP_DOMAIN_CDN_IMAGE: string;
+    }
 }

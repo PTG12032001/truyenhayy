@@ -7,5 +7,5 @@ import { fetchAPI } from '@/lib/actions/api';
 import { CONFIG_API_OUT_SIDE } from '@/configs/api';
 
 export async function getChapter(id: string) {
-    return fetchAPI<any>(`${CONFIG_API_OUT_SIDE.CHAPTER.INDEX}/${id}`, {}, 3600);
+    return fetchAPI<IApiResponse<IChapterData>>(`${CONFIG_API_OUT_SIDE.CHAPTER.INDEX}/${id}`, {}, 3600);
 }

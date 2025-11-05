@@ -5,7 +5,8 @@ import { Suspense } from 'react';
 import DynamicPageStatus from '@/components/common/DynamicPageStatus';
 
 // ** Modules
-import ListGenre from '@/modules/the-loai/ListGenre';
+import GenreHero from '@/modules/the-loai/GenreHero';
+import CompactGenreFilter from '@/modules/the-loai/CompactGenreFilter';
 
 // ** utils
 import removeExtension from '@/utils/removeExtension';
@@ -33,8 +34,8 @@ export async function generateMetadata({
     const genreName: string = res?.data.titlePage || 'Tất cả';
 
     return {
-        title: `${genreName === 'Tất cả' ? 'Tất cả thể loại' : `Thể loại - Truyện ${genreName}`} - Ztruyện`,
-        description: `Khám phá những câu chuyện hấp dẫn thuộc thể loại ${genreName}. Đọc ngay các truyện hay nhất, mới nhất về ${genreName} chỉ có tại Ztruyện`,
+        title: `${genreName === 'Tất cả' ? 'Tất cả thể loại' : `Thể loại - Truyện ${genreName}`} - Truyenhayy`,
+        description: `Khám phá những câu chuyện hấp dẫn thuộc thể loại ${genreName}. Đọc ngay các truyện hay nhất, mới nhất về ${genreName} tại Truyenhayy.online`,
         keywords: [
             `truyện tranh ${genreName}`,
             `truyện ${genreName}`,
@@ -47,8 +48,8 @@ export async function generateMetadata({
             },
         },
         openGraph: {
-            title: `Thể loại - Truyện ${genreName} - Ztruyện`,
-            description: `Khám phá những câu chuyện hấp dẫn thuộc thể loại ${genreName}. Đọc ngay các truyện hay nhất, mới nhất về ${genreName} chỉ có tại Ztruyện`,
+            title: `Thể loại - Truyện ${genreName} - Truyenhayy`,
+            description: `Khám phá những câu chuyện hấp dẫn thuộc thể loại ${genreName}. Đọc ngay tại Truyenhayy.online`,
             images: [
                 {
                     url: '/logo-all.png',
@@ -71,17 +72,23 @@ const Genre = async ({
 
     const pageQuery =
         parseInt(((await searchParams).page as string) || '1') || 1;
+    
     const response = await getGenres();
     const data: IGenres[] = response?.data?.items;
+    
+    const genreDetail = await getGenreDetail(slug);
+    const genreName = genreDetail?.data?.titlePage || 'Tất cả';
+    const totalComics = genreDetail?.data?.params?.pagination?.totalItems || 0;
 
     return (
         <>
-            <nav className="wrapper flex gap-3.5 justify-center container py-6 ">
-                <p className="flex-shrink-0 text-[15px] dark:text-[#ffffffbd] text-[#00000057]">
-                    Thể loại
-                </p>
-               <ListGenre data={data} slug={slug} />
-            </nav>
+            {/* Hero Section with Stats */}
+            <GenreHero genreName={genreName} totalComics={totalComics} />
+
+            {/* Compact Genre Filter - Horizontal Scroll */}
+            <CompactGenreFilter data={data} slug={slug} />
+
+            {/* Comics Grid */}
             <Suspense fallback={<DynamicPageStatusSkeleton/>}>
                 <DynamicPageStatus
                     category={`the-loai/${slug}`}

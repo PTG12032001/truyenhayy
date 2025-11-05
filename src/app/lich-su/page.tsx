@@ -9,8 +9,8 @@ import DynamicPageStatusSkeleton from '@/skeleton/DynamicPageStatusSkeleton';
 
 export async function generateMetadata() {
     return {
-        title: `Lịch sử đọc truyện của bạn - ztruyen.io.vn`,
-        description: `Lịch sử đọc truyện của bạn tại ztruyen.io.vn`,
+        title: `Lịch sử đọc truyện của bạn - truyenhayy.online`,
+        description: `Lịch sử đọc truyện của bạn tại truyenhayy.online`,
         keywords: [`Lịch sử đọc truyện`, `manga`, `comic`, `manhua`, `manhua`],
         alternates: {
             canonical: `/lich-su`,
@@ -19,8 +19,8 @@ export async function generateMetadata() {
             },
         },
         openGraph: {
-            title: `Lịch sử đọc truyện của bạn - ztruyen.io.vn`,
-            description: `Lịch sử đọc truyện của bạn tại ztruyen.io.vn`,
+            title: `Lịch sử đọc truyện của bạn - truyenhayy.online`,
+            description: `Lịch sử đọc truyện của bạn tại truyenhayy.online`,
             images: [
                 {
                     url: '/logo-all.png',

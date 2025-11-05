@@ -9,11 +9,11 @@ import DefaultLayout from '@/layouts/DefaultLayout';
 
 // ** Modules
 import NavbarGenre from '@/modules/home/NavbarGenre';
-import GridCarouselWrapper from '@/modules/home/GridCarouselWrapper';
-import NewComic from '@/modules/home/NewComic';
-import ComingSoon from '@/modules/home/ComingSoon';
-import PublishingComic from '@/modules/home/PublishingComic';
-import CompleteComic from '@/modules/home/CompleteComic';
+import HeroSectionWrapper from '@/modules/home/HeroSectionWrapper';
+import ModernNewComicWrapper from '@/modules/home/ModernNewComicWrapper';
+import ModernComingSoon from '@/modules/home/ModernComingSoon';
+import ModernPublishing from '@/modules/home/ModernPublishing';
+import ModernComplete from '@/modules/home/ModernComplete';
 
 // ** Skeletons
 import GridCarouselSkeleton from '@/skeleton/home/GridCarouselSkeleton';
@@ -22,52 +22,78 @@ import ListComicSkeleton from '@/skeleton/home/ListComicSkeleton';
 import NewComicSkeleton from '@/skeleton/home/NewComicSkeleton';
 
 export const metadata: Metadata = {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_YOUR_WEBSITE || ''),
-    title: 'Đọc truyện tranh Manhwa, Manga, Manhua Online - Ztruyện ',
+    title: 'Đọc Truyện Tranh Online Miễn Phí - Manhwa, Manga, Manhua Hay Nhất 2024',
     description:
-        'Web đọc truyện tranh manhwa, manhua, manga, ngôn tình, tiên hiệp, kiếm hiệp online hay và mới nhất cập nhật liên tục tại ztruyen.io.vn',
+        'Truyenhayy.online - Kho truyện tranh khổng lồ với 10,000+ bộ manhwa, manga, manhua hay nhất. Cập nhật mới nhất mỗi ngày: ngôn tình, tu tiên, kiếm hiệp, hành động, trinh thám. Đọc miễn phí, không quảng cáo!',
     keywords: [
-        'doc truyen tranh',
-        'manga',
-        'doc manga',
-        'ngon tinh',
-        'tien hiep',
+        'doc truyen tranh online',
+        'truyen tranh hay',
+        'truyenhayy',
+        'manga hay nhat',
+        'manhwa hay nhat',
+        'manhua hay nhat',
+        'doc manga online',
+        'doc manhwa online',
+        'truyen ngon tinh hay',
+        'truyen tu tien',
+        'truyen kiem hiep',
+        'truyen full',
+        'truyen hot 2024',
+        'doc truyen mien phi'
     ],
     alternates: {
-        canonical: `/`,
-        languages: {
-            vi: '/vi',
-        },
+        canonical: '/',
+    },
+    openGraph: {
+        title: 'Đọc Truyện Tranh Online Miễn Phí - Manhwa, Manga, Manhua Hay Nhất',
+        description: 'Kho truyện tranh khổng lồ với 10,000+ bộ manhwa, manga, manhua. Cập nhật mới nhất mỗi ngày!',
+        url: 'https://truyenhayy.online',
+        type: 'website',
     },
 };
 
 const Home = () => {
     return (
         <DefaultLayout>
-            <main>
-                <Suspense fallback={<GridCarouselSkeleton />}>
-                    <GridCarouselWrapper />
-                </Suspense>
+            <main className="relative">
+                {/* Global gradient overlay to blend sections */}
+                <div className="absolute inset-0 pointer-events-none z-0">
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/3 to-transparent"></div>
+                    <div className="absolute top-0 left-0 right-0 h-[800px] bg-gradient-to-b from-slate-950/60 via-purple-950/20 to-transparent"></div>
+                    <div className="absolute bottom-0 left-0 right-0 h-[800px] bg-gradient-to-t from-background/80 via-transparent to-transparent"></div>
+                </div>
 
-                <Suspense fallback={<NavbarGenreSkeleton />}>
-                    <NavbarGenre />
-                </Suspense>
+                <div className="relative z-10">
+                    {/* Hero Section - Bento Grid */}
+                    <Suspense fallback={<GridCarouselSkeleton />}>
+                        <HeroSectionWrapper />
+                    </Suspense>
 
-                <Suspense fallback={<NewComicSkeleton />}>
-                    <NewComic />
-                </Suspense>
+                    {/* Genre Navigation */}
+                    <Suspense fallback={<NavbarGenreSkeleton />}>
+                        <NavbarGenre />
+                    </Suspense>
 
-                <Suspense fallback={<ListComicSkeleton bgColor />}>
-                    <ComingSoon />
-                </Suspense>
+                    {/* New Comics - Masonry Grid with Filters */}
+                    <Suspense fallback={<NewComicSkeleton />}>
+                        <ModernNewComicWrapper />
+                    </Suspense>
 
-                <Suspense fallback={<ListComicSkeleton />}>
-                    <PublishingComic />
-                </Suspense>
+                    {/* Coming Soon - Horizontal Scroll */}
+                    <Suspense fallback={<ListComicSkeleton />}>
+                        <ModernComingSoon />
+                    </Suspense>
 
-                <Suspense fallback={<ListComicSkeleton bgColor />}>
-                    <CompleteComic />
-                </Suspense>
+                    {/* Publishing - Horizontal Scroll */}
+                    <Suspense fallback={<ListComicSkeleton />}>
+                        <ModernPublishing />
+                    </Suspense>
+
+                    {/* Complete - Horizontal Scroll */}
+                    <Suspense fallback={<ListComicSkeleton />}>
+                        <ModernComplete />
+                    </Suspense>
+                </div>
             </main>
         </DefaultLayout>
     );

@@ -10,7 +10,6 @@ import useTailwindBreakpoints from '@/hooks/useTailwindBreakpoints';
 import Link from "next/link";
 
 // ** Shadcn ui
-import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 // ** Skeleton
@@ -67,74 +66,98 @@ const RangeBtnPagination = ({ chapters, slug }: Props) => {
 
     return (
         <div className="flex flex-col gap-6">
-            {/* Pagination buttons */}
-            <div className="flex sm:grid sm:grid-cols-4 md:grid-cols-6 gap-2.5 sm:gap-3 mt-5 overflow-x-auto scroll-hidden">
+            {/* Pagination buttons - Modern Pills */}
+            <div className="flex sm:grid sm:grid-cols-4 md:grid-cols-6 gap-2.5 sm:gap-3 overflow-x-auto scrollbar-hide pb-2">
                 {Array.from({ length: totalRanges }).map((_, idx) => {
                     const rangeStart = idx * rangeSize + 1;
                     const rangeEnd = Math.min((idx + 1) * rangeSize, maxChapter);
 
                     return (
-                        <Button
+                        <button
                             key={idx}
                             onClick={() => setCurrentRange(idx)}
-                            className={`py-2 rounded-full text-xs transition min-w-max sm:min-w-0  ${
+                            className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 min-w-max sm:min-w-0 whitespace-nowrap ${
                                 idx === currentRange
-                                    ? "bg-blue-100 text-blue-600"
-                                    : "bg-gray-100 text-gray-600 hover:text-black"
+                                    ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/30 scale-105"
+                                    : "bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 text-slate-700 dark:text-slate-300 hover:from-slate-100 hover:to-slate-200 dark:hover:from-slate-700 dark:hover:to-slate-800 hover:scale-105 border border-slate-200 dark:border-slate-700"
                             }`}
                         >
                             {rangeStart} - {rangeEnd}
-                        </Button>
+                        </button>
                     );
                 })}
             </div>
 
-            {/* Chapter list */}
-            <ul className="flex flex-wrap gap-4 -mr-4">
-                {currentChapters.map((item, index) => (
-                    <li
-                        key={index}
-                        className="w-[calc(100%/2-16px)] sm:w-[calc(100%/3-16px)] md:w-[calc(100%/4-16px)]"
-                    >
-                        {item.chapter_title ? (
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Link
-                                            href={`/doc-truyen/${slug}-chuong-${item?.chapter_name}-${getIdFromUrl(item?.chapter_api_data, '/')}.html`}
-                                        >
-                                            <Button
-                                                variant="outline"
-                                                className="w-full dark:text-primary dark:border-primary"
+            {/* Chapter list - Modern Grid Cards */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                {currentChapters.map((item, index) => {
+                    const isNew = index === currentChapters.length - 1;
+                    
+                    return (
+                        <div key={index}>
+                            {item.chapter_title ? (
+                                <TooltipProvider>
+                                    <Tooltip>
+                                        <TooltipTrigger asChild>
+                                            <Link
+                                                href={`/doc-truyen/${slug}-chuong-${item?.chapter_name}-${getIdFromUrl(item?.chapter_api_data, '/')}.html`}
+                                                className="group block"
                                             >
-                                                <span className="line-clamp-1">
-                                                    {`Chương ${item.chapter_name} - ${item.chapter_title}`}
-                                                </span>
-                                            </Button>
-                                        </Link>
-                                    </TooltipTrigger>
-                                    <TooltipContent className="w-[198px] text-center shadow-lg my-0.5 bg-primary dark:bg-secondary p-2">
-                                        <p className="text-secondary/50 text-sm">
-                                            {item.chapter_title}
-                                        </p>
-                                    </TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
-                        ) : (
-                            <Link
-                                href={`/doc-truyen/${slug}-chuong-${item?.chapter_name}-${getIdFromUrl(item?.chapter_api_data, '/')}.html`}
-                            >
-                                <Button
-                                    variant="outline"
-                                    className="w-full dark:text-primary dark:border-primary"
+                                                <div className="relative px-4 py-3 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-purple-500 dark:hover:border-purple-500 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                                                    {isNew && (
+                                                        <span className="absolute -top-2 -right-2 px-2 py-0.5 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold rounded-full shadow-lg">
+                                                            NEW
+                                                        </span>
+                                                    )}
+                                                    <div className="flex items-center justify-between">
+                                                        <span className="font-semibold text-sm group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-pink-600 transition-all line-clamp-1">
+                                                            Chương {item.chapter_name}
+                                                        </span>
+                                                    </div>
+                                                    <p className="text-xs text-muted-foreground mt-1 line-clamp-1">
+                                                        {item.chapter_title}
+                                                    </p>
+                                                </div>
+                                            </Link>
+                                        </TooltipTrigger>
+                                        <TooltipContent className="max-w-[300px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-2xl">
+                                            <p className="text-foreground/80 text-sm font-medium">
+                                                {item.chapter_title}
+                                            </p>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
+                            ) : (
+                                <Link
+                                    href={`/doc-truyen/${slug}-chuong-${item?.chapter_name}-${getIdFromUrl(item?.chapter_api_data, '/')}.html`}
+                                    className="group block"
                                 >
-                                    {`Chương ${item.chapter_name}`}
-                                </Button>
-                            </Link>
-                        )}
-                    </li>
-                ))}
-            </ul>
+                                    <div className="relative px-4 py-3 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-purple-500 dark:hover:border-purple-500 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                                        {isNew && (
+                                            <span className="absolute -top-2 -right-2 px-2 py-0.5 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold rounded-full shadow-lg">
+                                                NEW
+                                            </span>
+                                        )}
+                                        <span className="font-semibold text-sm group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-pink-600 transition-all block text-center">
+                                            Chương {item.chapter_name}
+                                        </span>
+                                    </div>
+                                </Link>
+                            )}
+                        </div>
+                    );
+                })}
+            </div>
+
+            <style jsx>{`
+                .scrollbar-hide::-webkit-scrollbar {
+                    display: none;
+                }
+                .scrollbar-hide {
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                }
+            `}</style>
         </div>
     );
 };

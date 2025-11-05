@@ -1,11 +1,14 @@
-const KEY = "ZTC-history";
+const KEY = "truyenhayy-history";
 const MAX_COMIC_IN_HISTORY = 60;
 
 const getAll = (): IHistory[] => {
     try {
         const saved = localStorage.getItem(KEY);
         return saved ? JSON.parse(saved) : [];
-    } catch {
+    } catch (error) {
+        if (process.env.NODE_ENV === 'development') {
+            console.error('Failed to load reading history:', error);
+        }
         return [];
     }
 };
@@ -13,7 +16,11 @@ const getAll = (): IHistory[] => {
 const saveAll = (arr: IHistory[]) => {
     try {
         localStorage.setItem(KEY, JSON.stringify(arr));
-    } catch {}
+    } catch (error) {
+        if (process.env.NODE_ENV === 'development') {
+            console.error('Failed to save reading history:', error);
+        }
+    }
 };
 
 export const historyService = {

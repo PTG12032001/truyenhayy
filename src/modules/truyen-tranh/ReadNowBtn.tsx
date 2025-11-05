@@ -26,7 +26,7 @@ const ReadNowBtn = ({ chapter, href, slug }: IReadNowBtnProps) => {
                 variant="primary"
             >
                 <Link href={href}>
-                    📖 Đọc chương {chapter} ngay thôi! (≧▽≦)
+                    ✨ Bắt đầu đọc chương {chapter} thôi nào!
                 </Link>
             </Button>
         );
@@ -39,7 +39,7 @@ const ReadNowBtn = ({ chapter, href, slug }: IReadNowBtnProps) => {
 
         >
             <Link href={isComicHistory.path}>
-                🐾 Đọc tiếp chương {isComicHistory.chapter} thôi nào ~~ (=^･ｪ･^=)
+                🔖 Tiếp tục đọc chương {isComicHistory.chapter} nè!
             </Link>
         </Button>
     );

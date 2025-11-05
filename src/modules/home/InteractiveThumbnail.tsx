@@ -73,17 +73,17 @@ const InteractiveThumbnail = ({ listNewComic }: { listNewComic: IComic[] }) => {
                 </ul>
             </div>
 
-            <div className="h-[1px] bg-gray-500 w-full sm:w-[49%] z-10"></div>
+            <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent w-full sm:w-[49%] z-10"></div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-end z-10">
-                <div className="grid grid-cols-5 sm:grid-cols-7 gap-3 mb-4 mt-4 sm:mt-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-end z-10">
+                <div className="grid grid-cols-5 sm:grid-cols-7 gap-4 mb-6 mt-6 sm:mt-0">
                     {listNewComic?.slice(0, numberOfItems).map((item) => (
                         <div
                             key={`${item?._id}-thumbnail`}
-                            className={`aspect-[3/4] rounded-[5px] overflow-hidden cursor-pointer transform transition-all ease-in-out duration-300 ${
+                            className={`group aspect-[3/4] rounded-xl overflow-hidden cursor-pointer modern-card hover-lift transition-all duration-300 ${
                                 selectedComic?._id === item?._id
-                                    ? 'scale-[1.15] border border-white'
-                                    : ''
+                                    ? 'ring-2 ring-primary ring-offset-2 ring-offset-background scale-110 shadow-lg' 
+                                    : 'hover:scale-105'
                             }`}
                             onClick={() => handleImageClick(item)}
                         >
@@ -94,6 +94,7 @@ const InteractiveThumbnail = ({ listNewComic }: { listNewComic: IComic[] }) => {
                                 size="full"
                                 imgSize="xs"
                             />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </div>
                     ))}
                 </div>
@@ -104,8 +105,8 @@ const InteractiveThumbnail = ({ listNewComic }: { listNewComic: IComic[] }) => {
                 >
                     <ComicImage
                         src={`${CONFIG_API_OUT_SIDE.IMAGE.INDEX}/${selectedComic?.thumb_url}`}
-                        alt={selectedComic?.name || 'title name ztruyen'}
-                        title={selectedComic?.name || 'title name ztruyen'}
+                        alt={selectedComic?.name || 'Truyenhayy'}
+                        title={selectedComic?.name || 'Truyenhayy'}
                         size="full"
                         imgSize="3xl"
                     />

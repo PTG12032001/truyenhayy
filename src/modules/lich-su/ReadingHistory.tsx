@@ -121,24 +121,29 @@ const ReadingHistory = () => {
                                                 Xác nhận xoá
                                             </Button>
                                         </AlertDialogTrigger>
-                                        <AlertDialogContent>
+                                        <AlertDialogContent className="border-purple-500/20 bg-gradient-to-br from-purple-500/10 via-pink-500/10 to-blue-500/10 backdrop-blur-xl rounded-2xl">
                                             <AlertDialogHeader>
-                                                <AlertDialogTitle>
-                                                    Ôi không! Bạn muốn tiễn tất cả những truyện này lên thiên đường truyện tranh! (=^･ω･^=)
+                                                <AlertDialogTitle className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                                                    Xác nhận xóa lịch sử
                                                 </AlertDialogTitle>
-                                                <AlertDialogDescription>
-                                                    Hành động này sẽ xoá chúng vĩnh viễn, nhưng ký ức về chúng vẫn còn trong tim bạn! (≧ᆺ≦)
+                                                <AlertDialogDescription className="text-base">
+                                                    Bạn sắp xóa tất cả {selected.length} truyện đã chọn khỏi lịch sử đọc. Hành động này không thể hoàn tác.
                                                 </AlertDialogDescription>
                                             </AlertDialogHeader>
-                                            <AlertDialogFooter>
+                                            <AlertDialogFooter className="gap-2 sm:gap-2">
                                                 <AlertDialogCancel asChild>
-                                                    <Button variant='outline'>
-                                                        Thôi, tớ đổi ý rồi~ (ฅ^ω^ฅ)
+                                                    <Button 
+                                                        className="bg-gray-500/20 hover:bg-gray-500/30 border-gray-500/50 hover:border-gray-500/70 text-foreground"
+                                                    >
+                                                        Hủy bỏ
                                                     </Button>
                                                 </AlertDialogCancel>
                                                 <AlertDialogAction asChild>
-                                                    <Button onClick={handleDeleteMultiple} variant='danger'>
-                                                        Đúng vậy! (=^･ｪ･^=)/
+                                                    <Button 
+                                                        onClick={handleDeleteMultiple} 
+                                                        className="bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 text-white shadow-lg hover:shadow-red-500/25"
+                                                    >
+                                                        Xóa ngay
                                                     </Button>
                                                 </AlertDialogAction>
                                             </AlertDialogFooter>
@@ -253,24 +258,29 @@ const ReadingHistory = () => {
                                                     <X className="size-2.5 sm:size-3 text-white" />
                                                 </div>
                                             </AlertDialogTrigger>
-                                            <AlertDialogContent>
+                                            <AlertDialogContent className="border-purple-500/20 bg-gradient-to-br from-purple-500/10 via-pink-500/10 to-blue-500/10 backdrop-blur-xl rounded-2xl">
                                                 <AlertDialogHeader>
-                                                    <AlertDialogTitle>
-                                                        Ôi không! Bạn muốn tiễn truyện {item.name} lên thiên đường truyện tranh? (=^･ω･^=)
+                                                    <AlertDialogTitle className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                                                        Xóa khỏi lịch sử
                                                     </AlertDialogTitle>
-                                                    <AlertDialogDescription>
-                                                        Hành động này sẽ xoá truyện vĩnh viễn. Nhưng đừng buồn, ký ức về nó vẫn luôn ở lại trong tim bạn! (ฅ^ω^ฅ)
+                                                    <AlertDialogDescription className="text-base">
+                                                        Bạn muốn xóa truyện <span className="font-semibold text-purple-600 dark:text-purple-400">{item.name}</span> khỏi lịch sử đọc? Hành động này không thể hoàn tác.
                                                     </AlertDialogDescription>
                                                 </AlertDialogHeader>
-                                                <AlertDialogFooter>
+                                                <AlertDialogFooter className="gap-2 sm:gap-2">
                                                     <AlertDialogCancel asChild>
-                                                        <Button variant='outline'>
-                                                            Thôi, tớ đổi ý rồi~ (=^･^=)
+                                                        <Button 
+                                                            className="bg-gray-500/20 hover:bg-gray-500/30 border-gray-500/50 hover:border-gray-500/70 text-foreground"
+                                                        >
+                                                            Hủy bỏ
                                                         </Button>
                                                     </AlertDialogCancel>
                                                     <AlertDialogAction asChild>
-                                                        <Button onClick={() => handleDelete(item._id)} variant='danger'>
-                                                            Đúng vậy! (=^･ｪ･^=)/
+                                                        <Button 
+                                                            onClick={() => handleDelete(item._id)} 
+                                                            className="bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 text-white shadow-lg hover:shadow-red-500/25"
+                                                        >
+                                                            Xóa ngay
                                                         </Button>
                                                     </AlertDialogAction>
                                                 </AlertDialogFooter>

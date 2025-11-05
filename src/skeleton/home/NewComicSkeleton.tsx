@@ -2,20 +2,21 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 const NewComicSkeleton = () => {
     return (
-        <section className="bg-[#ffff] dark:bg-secondary">
-            <div className="wrapper pb-[30px] sm:pb-[40px] md:pb-[50px] lg:pb-[65px]">
-                <h1>
-                    <div
-                        className="pt-[20px] pb-[16px] text-[22px] font-medium
-                sm:pt-[30px] sm:pb-[20px] sm:text-[26px]
-                md:pt-[40px] md:pb-[28px] md:text-[30px]
-                lg:pt-[60px] lg:pb-[38px] lg:text-[34px]"
-                    >
-                        <Skeleton className="w-[270px] sm:w-[310px] md:w-[320px] lg:w-[323px] h-6"/>
-                    </div>
-                </h1>
+        <section className="relative py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden">
+            {/* Match ModernNewComic transparent style */}
+            <div className="absolute inset-0 opacity-10">
+                <div className="absolute top-20 left-10 w-32 h-32 bg-purple-500 rounded-full blur-3xl"></div>
+                <div className="absolute bottom-20 right-10 w-40 h-40 bg-blue-500 rounded-full blur-3xl"></div>
+            </div>
+            
+            <div className="wrapper relative z-10">
+                <div className="mb-10 sm:mb-12">
+                    <Skeleton className="w-[300px] sm:w-[400px] md:w-[500px] h-12 rounded-xl mb-4"/>
+                    <Skeleton className="w-[200px] h-5 rounded-lg"/>
+                </div>
+                
                 <figure
-                    className="rounded-2xl bg-black p-6 flex flex-col justify-between text-white relative h-[300px] mt-6">
+                    className="rounded-3xl bg-gradient-to-br from-purple-900/40 to-blue-900/40 backdrop-blur-sm border border-white/10 p-6 flex flex-col justify-between relative h-[300px]">
                     <div className="z-10 w-[49%]">
                         <Skeleton className="w-[270px] sm:w-[310px] md:w-[320px] lg:w-[323px] h-6"/>
 

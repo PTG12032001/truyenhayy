@@ -32,7 +32,7 @@ const ListGenre = ({data, slug}: IListGenreProps) => {
     }, [slug, isSm]);
 
     return (
-        <ul className="flex gap-3.5 flex-wrap text-[15px] h-[122px] sm:h-auto overflow-y-auto sm:overflow-visible custom-scroll">
+        <ul className="flex gap-2 flex-wrap text-sm h-[140px] sm:h-auto overflow-y-auto sm:overflow-visible custom-scroll">
             {data.map((item, index) => (
                 <li key={index}>
                     {item.slug === slug ? (
@@ -40,7 +40,7 @@ const ListGenre = ({data, slug}: IListGenreProps) => {
                             <Link
                                 ref={activeRef}
                                 href={`/the-loai/${item.slug}.html`}
-                                className={`active:bg-primaryColor active:text-primary rounded-[5px] px-[10px] py-1.5 ${item.slug === slug && 'text-primaryColor'}`}
+                                className="inline-block px-4 py-2 rounded-full font-medium whitespace-nowrap bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/30 transition-all duration-300"
                             >
                                 {item.name}
                             </Link>
@@ -49,7 +49,7 @@ const ListGenre = ({data, slug}: IListGenreProps) => {
                         <h2>
                             <Link
                                 href={`/the-loai/${item.slug}.html`}
-                                className={`active:bg-primaryColor active:text-primary rounded-[5px] px-[10px] py-1.5 ${item.slug === slug && 'text-primaryColor'}`}
+                                className="inline-block px-4 py-2 rounded-full font-medium whitespace-nowrap bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 hover:border-purple-500/40 hover:from-purple-500/20 hover:to-pink-500/20 transition-all duration-300 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text hover:text-transparent"
                             >
                                 {item.name}
                             </Link>
@@ -63,7 +63,7 @@ const ListGenre = ({data, slug}: IListGenreProps) => {
                         <Link
                             ref={activeRef}
                             href={`/the-loai/tat-ca.html`}
-                            className="active:bg-primaryColor active:text-primary rounded-[5px] px-[10px] py-1.5 text-primaryColor"
+                            className="inline-block px-4 py-2 rounded-full font-medium whitespace-nowrap bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/30 transition-all duration-300"
                         >
                             Tất cả
                         </Link>
@@ -72,7 +72,7 @@ const ListGenre = ({data, slug}: IListGenreProps) => {
                     <h2>
                         <Link
                             href={`/the-loai/tat-ca.html`}
-                            className="active:bg-primaryColor active:text-primary rounded-[5px] px-[10px] py-1.5"
+                            className="inline-block px-4 py-2 rounded-full font-medium whitespace-nowrap bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 hover:border-purple-500/40 hover:from-purple-500/20 hover:to-pink-500/20 transition-all duration-300 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text hover:text-transparent"
                         >
                             Tất cả
                         </Link>

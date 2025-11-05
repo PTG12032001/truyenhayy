@@ -29,8 +29,13 @@ const GridCarouselSkeleton = () => {
     ];
 
     return (
-        <div className="bg-black relative py-2 md:h-[57vh]">
-            <div className="grid md:hidden grid-cols-7 grid-rows-6 gap-0.5">
+        <div className="relative py-8 sm:py-12 md:py-16 md:h-[57vh]">
+            {/* Match HeroSection style */}
+            <div className="absolute inset-0 opacity-20">
+                <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl"></div>
+                <div className="absolute top-0 -right-4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl"></div>
+            </div>
+            <div className="grid md:hidden grid-cols-7 grid-rows-6 gap-0.5 relative z-10">
                 {gridPositions.map((position, index) => (
                     <div
                         key={index}
@@ -40,10 +45,10 @@ const GridCarouselSkeleton = () => {
                     </div>
                 ))}
             </div>
-            <div className="hidden md:grid grid-cols-8 grid-rows-2 gap-1.5 h-full">
+            <div className="hidden md:grid grid-cols-8 grid-rows-2 gap-1.5 h-full relative z-10">
                 {gridPositionsDesktop.map((pos, i) => (
                     <div key={i} className={`${pos} relative h-full`}>
-                        <Skeleton className="aspect-[3/4] size-full rounded-[2px]" />
+                        <Skeleton className="aspect-[3/4] size-full rounded-2xl" />
                     </div>
                 ))}
             </div>

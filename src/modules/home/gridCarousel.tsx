@@ -159,19 +159,17 @@ const GridCarousel = ({ data }: { data: IComic[] }) => {
             ></div>
             <Button
                 shape='verticalRectangle'
-                variant='darkOpacity'
-                className="absolute left-12 lg:left-[100px] top-1/2 z-20 -translate-y-1/2 hidden sm:flex"
+                className="absolute left-12 lg:left-[100px] top-1/2 z-20 -translate-y-1/2 hidden sm:flex bg-gradient-to-br from-purple-500/30 to-pink-500/30 backdrop-blur-xl border-2 border-purple-500/40 hover:border-purple-500/60 hover:from-purple-500/40 hover:to-pink-500/40 shadow-lg hover:shadow-purple-500/25"
                 onClick={() => swiperRef.current?.slidePrev()}
             >
-                <ChevronLeft className="text-white/60"/>
+                <ChevronLeft className="text-white"/>
             </Button>
             <Button
                 shape='verticalRectangle'
-                variant='darkOpacity'
-                className="absolute right-12 lg:right-[100px] top-1/2 z-20 -translate-y-1/2 hidden sm:flex"
+                className="absolute right-12 lg:right-[100px] top-1/2 z-20 -translate-y-1/2 hidden sm:flex bg-gradient-to-br from-purple-500/30 to-pink-500/30 backdrop-blur-xl border-2 border-purple-500/40 hover:border-purple-500/60 hover:from-purple-500/40 hover:to-pink-500/40 shadow-lg hover:shadow-purple-500/25"
                 onClick={() => swiperRef.current?.slideNext()}
             >
-                <ChevronRight className="text-white/60"/>
+                <ChevronRight className="text-white"/>
             </Button>
         </div>
     );

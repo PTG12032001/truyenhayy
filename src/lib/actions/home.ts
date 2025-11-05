@@ -19,7 +19,9 @@ async function fetchData(url: string, revalidate?: number) {
         const data = await res.json();
         return data?.data?.items || [];
     } catch (err) {
-        console.error(err);
+        if (process.env.NODE_ENV === 'development') {
+            console.error('Failed to fetch home data:', err);
+        }
         return [];
     }
 }
