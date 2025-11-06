@@ -1,3 +1,6 @@
+// ** Cloudflare Pages Edge Runtime
+export const runtime = 'edge';
+
 // ** React
 import { Suspense } from 'react';
 
