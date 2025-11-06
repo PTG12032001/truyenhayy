@@ -1,6 +1,7 @@
-// ** Dynamic rendering for better compatibility
+// ** Cloudflare Pages Edge Runtime
+export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
-export const maxDuration = 60; // Increase timeout to 60 seconds
+// Note: Edge runtime has strict timeouts, external API calls may be slow
 
 // ** Next
 import Link from 'next/link';
