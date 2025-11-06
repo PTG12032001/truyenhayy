@@ -1,9 +1,6 @@
 import { Metadata } from 'next';
 import { Mail, MessageSquare, Phone, MapPin, Send, Clock } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
-export const runtime = 'edge';
-
 export const metadata: Metadata = {
     title: 'Liên hệ',
     description: 'Thông tin liên hệ và hỗ trợ',

@@ -1,5 +1,5 @@
-// ** Cloudflare Pages Edge Runtime
-export const runtime = 'edge';
+// ISR Revalidation: Search results revalidate every 30 minutes
+export const revalidate = 1800;
 
 // ** Next
 import Link from 'next/link';

@@ -1,9 +1,6 @@
 import { Metadata } from 'next';
 import { FileText, AlertCircle, CheckCircle, XCircle, Scale, RefreshCw } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
-export const runtime = 'edge';
-
 export const metadata: Metadata = {
     title: 'Điều khoản sử dụng',
     description: 'Điều khoản và điều kiện sử dụng dịch vụ',

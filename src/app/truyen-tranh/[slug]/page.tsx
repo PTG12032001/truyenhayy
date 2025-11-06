@@ -1,5 +1,5 @@
-// ** Cloudflare Pages Edge Runtime
-export const runtime = 'edge';
+// ISR Revalidation: Revalidate every 1 hour to reduce ISR calls on Vercel free tier
+export const revalidate = 3600;
 
 // ** Next
 import Link from 'next/link';

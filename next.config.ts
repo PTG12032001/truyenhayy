@@ -3,10 +3,10 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
     /* config options here */
     
-    // Disable image optimization for Cloudflare Pages compatibility
-    // Images are already optimized from external CDN (otruyenapi.com)
+    // Disable Vercel Image Optimization to stay within free tier
+    // Images are served directly from external CDN (otruyenapi.com)
     images: {
-        unoptimized: true, // Required for Cloudflare Pages
+        unoptimized: true,
         remotePatterns: [
             {
                 protocol: 'https',
@@ -22,9 +22,6 @@ const nextConfig: NextConfig = {
             },
         ],
     },
-    
-    // Optimize output for Cloudflare Pages
-    output: 'standalone',
 
     // rewrites
     async rewrites() {
