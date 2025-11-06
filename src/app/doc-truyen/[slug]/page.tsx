@@ -1,5 +1,6 @@
 // ** Cloudflare Pages Edge Runtime
 export const runtime = 'edge';
+export const maxDuration = 60; // Increase timeout to 60 seconds
 
 // ** Next
 import Link from 'next/link';
