@@ -6,8 +6,33 @@ compatibility_flags = ["nodejs_compat"]
 # Pages configuration
 pages_build_output_dir = ".vercel/output/static"
 
+# Environment variables for build time
+[vars]
+NEXT_PUBLIC_API_URL_CHAPTER_OUT_SIDE = "https://sv1.otruyencdn.com/v1/api/chapter"
+NEXT_PUBLIC_API_URL_OUT_SIDE = "https://otruyenapi.com/v1/api"
+NEXT_PUBLIC_URL_IMG = "https://img.otruyenapi.com/uploads/comics"
+NEXT_PUBLIC_YOUR_WEBSITE = "https://truyenhayy.online"
+NEXT_PUBLIC_SITE_NAME = "Truyenhayy.online"
+NEXT_PUBLIC_GA_MEASUREMENT_ID = "G-2Z51J7VGZ5"
+
 [env.production]
 compatibility_flags = ["nodejs_compat"]
 
+[env.production.vars]
+NEXT_PUBLIC_API_URL_CHAPTER_OUT_SIDE = "https://sv1.otruyencdn.com/v1/api/chapter"
+NEXT_PUBLIC_API_URL_OUT_SIDE = "https://otruyenapi.com/v1/api"
+NEXT_PUBLIC_URL_IMG = "https://img.otruyenapi.com/uploads/comics"
+NEXT_PUBLIC_YOUR_WEBSITE = "https://truyenhayy.online"
+NEXT_PUBLIC_SITE_NAME = "Truyenhayy.online"
+NEXT_PUBLIC_GA_MEASUREMENT_ID = "G-2Z51J7VGZ5"
+
 [env.preview]
 compatibility_flags = ["nodejs_compat"]
+
+[env.preview.vars]
+NEXT_PUBLIC_API_URL_CHAPTER_OUT_SIDE = "https://sv1.otruyencdn.com/v1/api/chapter"
+NEXT_PUBLIC_API_URL_OUT_SIDE = "https://otruyenapi.com/v1/api"
+NEXT_PUBLIC_URL_IMG = "https://img.otruyenapi.com/uploads/comics"
+NEXT_PUBLIC_YOUR_WEBSITE = "https://truyenhayy.online"
+NEXT_PUBLIC_SITE_NAME = "Truyenhayy.online"
+NEXT_PUBLIC_GA_MEASUREMENT_ID = "G-2Z51J7VGZ5"
