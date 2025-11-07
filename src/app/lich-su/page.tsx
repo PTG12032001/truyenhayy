@@ -12,6 +12,12 @@ export async function generateMetadata() {
         title: `Lịch sử đọc truyện của bạn - truyenhayy.online`,
         description: `Lịch sử đọc truyện của bạn tại truyenhayy.online`,
         keywords: [`Lịch sử đọc truyện`, `manga`, `comic`, `manhua`, `manhua`],
+        // Prevent indexing of personal reading history (privacy & SEO best practice)
+        robots: {
+            index: false,
+            follow: true,
+            noarchive: true,
+        },
         alternates: {
             canonical: `/lich-su`,
             languages: {

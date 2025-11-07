@@ -30,6 +30,14 @@ export async function generateMetadata({
             `tìm ${keyword} với truyenhayy.online`,
             `kết quả tìm kiếm ${keyword} từ truyenhayy.online`,
         ],
+        // Prevent search pages from being indexed (SEO best practice)
+        robots: {
+            index: false,
+            follow: true,
+            noarchive: true,
+            nosnippet: true,
+            noimageindex: true,
+        },
         alternates: {
             canonical: `/tim-kiem?keyword=${keyword}`,
             languages: {

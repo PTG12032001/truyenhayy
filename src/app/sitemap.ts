@@ -1,49 +1,57 @@
-//  ** action services
+//  ** Next.js
+import type { MetadataRoute } from 'next'
+
+//  ** Action services
 import { getGenres } from '@/lib/actions/dynamic.page';
 import { getListNew } from '@/lib/actions/home';
 
-export default async function sitemap() {
-    const baseURL = process.env.NEXT_PUBLIC_YOUR_WEBSITE;
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+    const baseURL = process.env.NEXT_PUBLIC_YOUR_WEBSITE || 'https://truyenhayy.online';
+    
+    // Fetch data
     const resGenres = await getGenres();
-    const dataGenres: IGenres[] = resGenres?.data?.items;
-    const dataHome: IComic[] = await getListNew();
+    const dataGenres: IGenres[] = resGenres?.data?.items || [];
+    const dataHome: IComic[] = await getListNew() || [];
+    
+    // Generate genre URLs
     const dataGenreUrls = dataGenres.map((genre) => ({
         url: `${baseURL}/the-loai/${genre.slug}.html`,
         lastModified: new Date(),
-        changeFrequency: 'weekly',
+        changeFrequency: 'weekly' as const,
         priority: 0.8,
     }));
 
-    const dataHomeUrls = dataHome.map((comic) => ({
+    // Generate comic URLs (only new/popular comics for better crawl efficiency)
+    const dataHomeUrls = dataHome.slice(0, 100).map((comic) => ({
         url: `${baseURL}/truyen-tranh/${comic.slug}`,
         lastModified: new Date(),
-        changeFrequency: 'weekly',
+        changeFrequency: 'weekly' as const,
         priority: 0.9,
     }));
+    
     return [
+        // Homepage - Highest priority
         {
             url: baseURL,
             lastModified: new Date(),
             changeFrequency: 'daily',
             priority: 1.0,
         },
+        
+        // Static important pages
         {
-            url: `${baseURL}/truyen-tranh/`,
+            url: `${baseURL}/tat-ca.html`,
             lastModified: new Date(),
-            changeFrequency: 'weekly',
+            changeFrequency: 'daily',
             priority: 0.9,
         },
-        {
-            url: `${baseURL}/doc-truyen/`,
-            lastModified: new Date(),
-            changeFrequency: 'weekly',
-            priority: 0.9,
-        },
+        
+        // Status pages
         {
             url: `${baseURL}/danh-sach/dang-phat-hanh`,
             lastModified: new Date(),
-            changeFrequency: 'weekly',
-            priority: 0.7,
+            changeFrequency: 'daily',
+            priority: 0.8,
         },
         {
             url: `${baseURL}/danh-sach/hoan-thanh`,
@@ -54,22 +62,40 @@ export default async function sitemap() {
         {
             url: `${baseURL}/danh-sach/sap-ra-mat`,
             lastModified: new Date(),
-            changeFrequency: 'weekly',
+            changeFrequency: 'daily',
             priority: 0.7,
         },
         {
-            url: `${baseURL}/tim-kiem`,
+            url: `${baseURL}/danh-sach/truyen-moi`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.8,
+        },
+        
+        // Static pages
+        {
+            url: `${baseURL}/contact`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 0.3,
         },
         {
-            url: `${baseURL}/tat-ca.html`,
+            url: `${baseURL}/privacy`,
             lastModified: new Date(),
-            changeFrequency: 'weekly',
-            priority: 0.8,
+            changeFrequency: 'yearly',
+            priority: 0.2,
         },
+        {
+            url: `${baseURL}/terms`,
+            lastModified: new Date(),
+            changeFrequency: 'yearly',
+            priority: 0.2,
+        },
+        
+        // Genre pages - Important for SEO
         ...dataGenreUrls,
+        
+        // Comic detail pages - High priority
         ...dataHomeUrls,
     ];
 }

@@ -1,53 +1,92 @@
-import { MetadataRoute } from 'next';
+import type { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
-    return {
-        rules: [
-            {
-                userAgent: '*',
-                allow: '/',
-                disallow: [
-                    '/api/',
-                    '/_next/',
-                    '/admin/',
-                    // Block spam search patterns
-                    '/tim-kiem?keyword=*.com',
-                    '/tim-kiem?keyword=*.cc',
-                    '/tim-kiem?keyword=*.vip',
-                    '/tim-kiem?keyword=*.net',
-                    '/tim-kiem?keyword=*.wink',
-                    '/tim-kiem?keyword=*.live',
-                    '/tim-kiem?keyword=*casino*',
-                    '/tim-kiem?keyword=*slot*',
-                    '/tim-kiem?keyword=*bet*',
-                    '/tim-kiem?keyword=*telegram*',
-                    '/tim-kiem?keyword=*đánh*lô*',
-                    // Block spam keywords
-                    '/*casino*',
-                    '/*slot*',
-                    '/*bet*',
-                    '/*telegram*',
-                    '/*Telegram*',
-                    '/*binance*',
-                    '/*airdrop*',
-                    '/*WeChat*',
-                    '/*đánh*lô*',
-                    '/*daftar*',
-                    '/*Sex*',
-                    '/*xxxx*',
-                ],
-            },
-            {
-                userAgent: 'Googlebot',
-                allow: '/',
-                disallow: ['/api/', '/_next/'],
-            },
-            {
-                userAgent: 'Bingbot',
-                allow: '/',
-                disallow: ['/api/', '/_next/'],
-            },
+  const baseUrl = process.env.NEXT_PUBLIC_YOUR_WEBSITE || 'https://truyenhayy.online'
+  
+  return {
+    rules: [
+      {
+        userAgent: '*',
+        allow: '/',
+        disallow: [
+          // Block internal/system paths
+          '/api/',
+          '/_next/',
+          '/admin/',
+          
+          // Block tracking parameters (prevent duplicate content indexing)
+          '/*?utm_',
+          '/*?fbclid=',
+          '/*?gclid=',
+          '/*?ref=',
+          '/*?source=',
+          
+          // Block print and share versions
+          '/*?print=',
+          '/*?share=',
         ],
-        sitemap: 'https://truyenhayy.online/sitemap.xml',
-    };
+      },
+      {
+        userAgent: 'Googlebot',
+        allow: '/',
+        disallow: [
+          '/api/',
+          '/_next/',
+          '/admin/',
+        ],
+        // Encourage crawling important pages
+      },
+      {
+        userAgent: 'Googlebot-Image',
+        allow: '/',
+        disallow: [
+          '/api/',
+          '/_next/static/',
+        ],
+        // Allow image bot to crawl comic images
+      },
+      {
+        userAgent: 'Bingbot',
+        allow: '/',
+        disallow: [
+          '/api/',
+          '/_next/',
+          '/admin/',
+        ],
+      },
+      {
+        // Block aggressive SEO tools and scrapers
+        userAgent: [
+          'SemrushBot',
+          'AhrefsBot',
+          'DotBot',
+          'MJ12bot',
+          'BLEXBot',
+          'PetalBot',
+          'DataForSeoBot',
+          'Bytespider',
+          'ZoominfoBot',
+          'proximic',
+          'MegaIndex',
+          'BrandVerity',
+          'Screaming Frog',
+          'LinkpadBot',
+        ],
+        disallow: '/',
+      },
+      {
+        // Block known bad bots
+        userAgent: [
+          'CCBot',
+          'ChatGPT-User',
+          'GPTBot',
+          'Google-Extended',
+          'anthropic-ai',
+          'Claude-Web',
+        ],
+        disallow: '/',
+      },
+    ],
+    sitemap: `${baseUrl}/sitemap.xml`,
+  }
 }
