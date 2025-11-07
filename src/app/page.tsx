@@ -22,7 +22,7 @@ import ListComicSkeleton from '@/skeleton/home/ListComicSkeleton';
 import NewComicSkeleton from '@/skeleton/home/NewComicSkeleton';
 
 export const metadata: Metadata = {
-    title: 'Đọc Truyện Tranh Online Miễn Phí - Manhwa, Manga, Manhua Hay Nhất 2024',
+    title: 'Đọc Truyện Tranh Online Miễn Phí - Manhwa, Manga, Manhua Hay Nhất',
     description:
         'Truyenhayy.online - Kho truyện tranh khổng lồ với 10,000+ bộ manhwa, manga, manhua hay nhất. Cập nhật mới nhất mỗi ngày: ngôn tình, tu tiên, kiếm hiệp, hành động, trinh thám. Đọc miễn phí, không quảng cáo!',
     keywords: [
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
         'truyen tu tien',
         'truyen kiem hiep',
         'truyen full',
-        'truyen hot 2024',
+        'truyen hot',
         'doc truyen mien phi'
     ],
     alternates: {
