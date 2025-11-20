@@ -1,5 +1,5 @@
-// ISR Revalidation: Revalidate every 1 hour to reduce ISR calls on Vercel free tier
-export const revalidate = 3600;
+// ISR Revalidation: Revalidate every 6 hours to reduce ISR calls on Vercel free tier
+export const revalidate = 21600;
 
 // ** Next
 import Link from 'next/link';

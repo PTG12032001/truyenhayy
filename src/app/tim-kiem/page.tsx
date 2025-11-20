@@ -1,5 +1,5 @@
-// ISR Revalidation: Search results revalidate every 30 minutes
-export const revalidate = 1800;
+// ISR Revalidation: Search results revalidate every 6 hours to reduce ISR calls on Vercel free tier
+export const revalidate = 21600;
 
 // ** Next
 import Link from 'next/link';

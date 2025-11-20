@@ -5,8 +5,8 @@ import type { MetadataRoute } from 'next'
 import { getGenres, getGenreDetail } from '@/lib/actions/dynamic.page';
 import { getListNew, getListHome, getListPublishing, getListComplete, getListComingSoon } from '@/lib/actions/home';
 
-// Revalidate sitemap every 1 hour (3600 seconds)
-export const revalidate = 3600;
+// Revalidate sitemap every 24 hours (86400 seconds) to stay within Vercel free tier
+export const revalidate = 86400;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseURL = process.env.NEXT_PUBLIC_YOUR_WEBSITE || 'https://truyenhayy.online';

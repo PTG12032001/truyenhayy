@@ -21,6 +21,9 @@ import NavbarGenreSkeleton from '@/skeleton/home/NavbarGenreSkeleton';
 import ListComicSkeleton from '@/skeleton/home/ListComicSkeleton';
 import NewComicSkeleton from '@/skeleton/home/NewComicSkeleton';
 
+// ISR Revalidation: Revalidate homepage every 12 hours to reduce ISR calls on Vercel free tier
+export const revalidate = 43200;
+
 export const metadata: Metadata = {
     title: 'Đọc Truyện Tranh Online Miễn Phí - Manhwa, Manga, Manhua Hay Nhất',
     description:
