@@ -90,12 +90,6 @@ export async function generateMetadata({
             description: `Đọc ${comicName} mới nhất full tiếng việt miễn phí`,
             images: [`${res?.data?.APP_DOMAIN_CDN_IMAGE}/uploads/comics/${detail?.thumb_url}`],
         },
-        twitter: {
-            card: 'summary_large_image',
-            title: `${comicName} - Đọc Truyện Full Tiếng Việt`,
-            description: `Đọc ${comicName} mới nhất tại Truyenhayy.online`,
-            images: [`${res?.data?.APP_DOMAIN_CDN_IMAGE}/uploads/comics/${detail?.thumb_url}`],
-        },
     };
 }
 
