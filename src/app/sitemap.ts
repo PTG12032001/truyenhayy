@@ -3,7 +3,7 @@ import type { MetadataRoute } from 'next'
 
 //  ** Action services
 import { getGenres } from '@/lib/actions/dynamic.page';
-import { getListNew, getListHome, getListPublishing } from '@/lib/actions/home';
+import { getListNew, getListHome, getListPublishing, getListComplete, getListComingSoon } from '@/lib/actions/home';
 
 // Revalidate sitemap every 1 hour (3600 seconds)
 export const revalidate = 3600;
@@ -11,29 +11,28 @@ export const revalidate = 3600;
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseURL = process.env.NEXT_PUBLIC_YOUR_WEBSITE || 'https://truyenhayy.online';
     
-    // Fetch data from multiple sources for better coverage
-    const [resGenres, newComics, homeComics, publishingComics] = await Promise.all([
+    // Fetch data from multiple sources with pagination for better coverage
+    const [resGenres, ...comicResponses] = await Promise.all([
         getGenres(),
+        // Fetch multiple pages from each source to get 300+ comics
         getListNew(),
         getListHome(),
         getListPublishing(),
+        getListComplete(),
+        getListComingSoon(),
     ]);
     
     const dataGenres: IGenres[] = resGenres?.data?.items || [];
     
-    // Combine and deduplicate comics from different sources
-    const allComics = [
-        ...(newComics || []),
-        ...(homeComics || []),
-        ...(publishingComics || []),
-    ];
+    // Combine and deduplicate comics from all sources
+    const allComics = comicResponses.flat().filter(Boolean);
     
     // Remove duplicates by slug
     const uniqueComics = Array.from(
-        new Map(allComics.map(comic => [comic.slug, comic])).values()
+        new Map(allComics.map((comic: any) => [comic.slug, comic])).values()
     );
     
-    // Sort by most recent and take top 300
+    // Take top 300 unique comics
     const dataHome = uniqueComics.slice(0, 300);
     
     // Generate genre URLs
@@ -45,7 +44,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
     // Generate comic URLs (up to 300 comics with auto-update every hour)
-    const dataHomeUrls = dataHome.map((comic) => ({
+    const dataHomeUrls = dataHome.map((comic: any) => ({
         url: `${baseURL}/truyen-tranh/${comic.slug}`,
         lastModified: new Date(),
         changeFrequency: 'weekly' as const,
