@@ -3,15 +3,38 @@ import type { MetadataRoute } from 'next'
 
 //  ** Action services
 import { getGenres } from '@/lib/actions/dynamic.page';
-import { getListNew } from '@/lib/actions/home';
+import { getListNew, getListHome, getListPublishing } from '@/lib/actions/home';
+
+// Revalidate sitemap every 1 hour (3600 seconds)
+export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseURL = process.env.NEXT_PUBLIC_YOUR_WEBSITE || 'https://truyenhayy.online';
     
-    // Fetch data
-    const resGenres = await getGenres();
+    // Fetch data from multiple sources for better coverage
+    const [resGenres, newComics, homeComics, publishingComics] = await Promise.all([
+        getGenres(),
+        getListNew(),
+        getListHome(),
+        getListPublishing(),
+    ]);
+    
     const dataGenres: IGenres[] = resGenres?.data?.items || [];
-    const dataHome: IComic[] = await getListNew() || [];
+    
+    // Combine and deduplicate comics from different sources
+    const allComics = [
+        ...(newComics || []),
+        ...(homeComics || []),
+        ...(publishingComics || []),
+    ];
+    
+    // Remove duplicates by slug
+    const uniqueComics = Array.from(
+        new Map(allComics.map(comic => [comic.slug, comic])).values()
+    );
+    
+    // Sort by most recent and take top 300
+    const dataHome = uniqueComics.slice(0, 300);
     
     // Generate genre URLs
     const dataGenreUrls = dataGenres.map((genre) => ({
@@ -21,8 +44,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.8,
     }));
 
-    // Generate comic URLs (only new/popular comics for better crawl efficiency)
-    const dataHomeUrls = dataHome.slice(0, 100).map((comic) => ({
+    // Generate comic URLs (up to 300 comics with auto-update every hour)
+    const dataHomeUrls = dataHome.map((comic) => ({
         url: `${baseURL}/truyen-tranh/${comic.slug}`,
         lastModified: new Date(),
         changeFrequency: 'weekly' as const,
@@ -36,14 +59,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             lastModified: new Date(),
             changeFrequency: 'daily',
             priority: 1.0,
-        },
-        
-        // Static important pages
-        {
-            url: `${baseURL}/tat-ca.html`,
-            lastModified: new Date(),
-            changeFrequency: 'daily',
-            priority: 0.9,
         },
         
         // Status pages
