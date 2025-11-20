@@ -68,12 +68,6 @@ export async function generateMetadata({
             description: `Kết quả tìm kiếm cho "${keyword}"`,
             images: ['/logothayy.png'],
         },
-                    url: '/logo-all.png',
-                    width: 400,
-                    height: 200,
-                },
-            ],
-        },
     };
 }
 const SearchPage = async ({
