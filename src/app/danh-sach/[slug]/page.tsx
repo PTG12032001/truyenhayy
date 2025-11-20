@@ -33,14 +33,21 @@ export async function generateMetadata({
     const status = res?.data?.titlePage;
 
     return {
-        title: `${status} - truyenhayy.online`,
-        description: `${status} tại truyenhayy.online`,
+        title: `Truyện ${status} - Đọc Manga Manhwa Mới Nhất 2025 | Truyenhayy`,
+        description: `Danh sách 300+ truyện ${status?.toLowerCase()} mới nhất, hot nhất. Đọc manga, manhwa, manhua online miễn phí. Cập nhật liên tục hàng ngày tại Truyenhayy.online`,
         keywords: [
-            `Truyện tranh`,
-            `manga`,
-            `comic`,
-            `manhua`,
-            `manhua ${status}`,
+            `truyen ${status?.toLowerCase()}`,
+            `manga ${status?.toLowerCase()}`,
+            `manhwa ${status?.toLowerCase()}`,
+            `manhua ${status?.toLowerCase()}`,
+            `truyen tranh moi nhat`,
+            `doc truyen online`,
+            `truyen tranh hot`,
+            `manga moi nhat 2025`,
+            `manhwa moi nhat`,
+            `doc truyen mien phi`,
+            `truyen tranh hay`,
+            `truyen tranh ${status?.toLowerCase()}`,
         ],
         alternates: {
             canonical: `/danh-sach/${slug}?page=${pageQuery}`,
@@ -49,15 +56,24 @@ export async function generateMetadata({
             },
         },
         openGraph: {
-            title: `Truyện ${status} - truyenhayy.online`,
-            description: `Truyện ${status} tại truyenhayy.online`,
+            title: `Truyện ${status} - Đọc Manga Manhwa Mới Nhất 2025`,
+            description: `Danh sách 300+ truyện ${status?.toLowerCase()} mới nhất, hot nhất. Đọc manga, manhwa, manhua online miễn phí tại Truyenhayy.online`,
+            url: `/danh-sach/${slug}`,
+            type: 'website',
             images: [
                 {
-                    url: '/logo-all.png',
-                    width: 400,
-                    height: 200,
+                    url: '/logothayy.png',
+                    width: 1200,
+                    height: 630,
+                    alt: `Truyện ${status} - Truyenhayy.online`,
                 },
             ],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: `Truyện ${status} - Truyenhayy.online`,
+            description: `Danh sách 300+ truyện ${status?.toLowerCase()} mới nhất. Đọc miễn phí tại Truyenhayy.online`,
+            images: ['/logothayy.png'],
         },
     };
 }

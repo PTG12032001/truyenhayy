@@ -47,8 +47,8 @@ export async function generateMetadata({
     const latestChapter = chapters[0]?.chapter_name || '';
 
     return {
-        title: `${comicName} - Đọc Truyện ${comicName} Full Tiếng Việt`,
-        description: `Đọc truyện tranh ${comicName} tiếng việt mới nhất ${latestChapter ? `chương ${latestChapter}` : ''} tại Truyenhayy.online. ${detail?.content?.substring(0, 150) || 'Cập nhật nhanh nhất, hoàn toàn miễn phí.'}`,
+        title: `${comicName} - Đọc Truyện ${comicName} Full Tiếng Việt Mới Nhất | Truyenhayy`,
+        description: `Đọc truyện tranh ${comicName} tiếng việt full mới nhất ${latestChapter ? `chương ${latestChapter}` : ''} tại Truyenhayy.online. ${detail?.content?.substring(0, 120) || 'Cập nhật nhanh nhất, hoàn toàn miễn phí, không quảng cáo.'}`,
         keywords: [
             comicName,
             `doc ${comicName}`,
@@ -56,8 +56,13 @@ export async function generateMetadata({
             `${comicName} tieng viet`,
             `${comicName} full`,
             `${comicName} moi nhat`,
-            'doc truyen tranh',
-            'truyen tranh hay'
+            `${comicName} online`,
+            `${comicName} mien phi`,
+            `doc truyen ${comicName}`,
+            `truyen tranh ${comicName}`,
+            'doc truyen tranh online',
+            'truyen tranh hay',
+            'doc truyen mien phi',
         ],
         alternates: {
             canonical: `/truyen-tranh/${slug}`,
@@ -66,18 +71,24 @@ export async function generateMetadata({
             },
         },
         openGraph: {
-            title: `${comicName} - Đọc Truyện Full Tiếng Việt`,
-            description: `Đọc ${comicName} mới nhất ${latestChapter ? `chương ${latestChapter}` : ''} tại Truyenhayy.online`,
+            title: `${comicName} - Đọc Truyện Full Tiếng Việt Mới Nhất`,
+            description: `Đọc ${comicName} mới nhất ${latestChapter ? `chương ${latestChapter}` : ''} full tiếng việt miễn phí tại Truyenhayy.online`,
             url: `https://truyenhayy.online/truyen-tranh/${slug}`,
             type: 'article',
             images: [
                 {
                     url: `${res?.data?.APP_DOMAIN_CDN_IMAGE}/uploads/comics/${detail?.thumb_url}`,
-                    width: 400,
-                    height: 600,
-                    alt: comicName,
+                    width: 1200,
+                    height: 630,
+                    alt: `${comicName} - Truyenhayy.online`,
                 },
             ],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: `${comicName} - Truyenhayy.online`,
+            description: `Đọc ${comicName} mới nhất full tiếng việt miễn phí`,
+            images: [`${res?.data?.APP_DOMAIN_CDN_IMAGE}/uploads/comics/${detail?.thumb_url}`],
         },
         twitter: {
             card: 'summary_large_image',

@@ -37,12 +37,21 @@ export async function generateMetadata({
     const genreName: string = res?.data.titlePage || 'Tất cả';
 
     return {
-        title: `${genreName === 'Tất cả' ? 'Tất cả thể loại' : `Thể loại - Truyện ${genreName}`} - Truyenhayy`,
-        description: `Khám phá những câu chuyện hấp dẫn thuộc thể loại ${genreName}. Đọc ngay các truyện hay nhất, mới nhất về ${genreName} tại Truyenhayy.online`,
+        title: `Truyện ${genreName} Hay Nhất - Đọc Manga Manhwa ${genreName} 2025 | Truyenhayy`,
+        description: `Top 200+ truyện ${genreName.toLowerCase()} hay nhất, mới nhất 2025. Đọc manga ${genreName.toLowerCase()}, manhwa ${genreName.toLowerCase()}, manhua ${genreName.toLowerCase()} online miễn phí. Cập nhật liên tục tại Truyenhayy.online`,
         keywords: [
-            `truyện tranh ${genreName}`,
-            `truyện ${genreName}`,
-            `Truyện ${genreName}`,
+            `truyen ${genreName.toLowerCase()}`,
+            `truyen ${genreName.toLowerCase()} hay nhat`,
+            `manga ${genreName.toLowerCase()}`,
+            `manhwa ${genreName.toLowerCase()}`,
+            `manhua ${genreName.toLowerCase()}`,
+            `doc truyen ${genreName.toLowerCase()}`,
+            `truyen ${genreName.toLowerCase()} hay`,
+            `truyen ${genreName.toLowerCase()} moi nhat`,
+            `truyen ${genreName.toLowerCase()} 2025`,
+            `truyen ${genreName.toLowerCase()} mien phi`,
+            `truyen tranh ${genreName.toLowerCase()}`,
+            `doc truyen ${genreName.toLowerCase()} online`,
         ],
         alternates: {
             canonical: `/the-loai/${slug}?page=${pageQuery}`,
@@ -51,15 +60,24 @@ export async function generateMetadata({
             },
         },
         openGraph: {
-            title: `Thể loại - Truyện ${genreName} - Truyenhayy`,
-            description: `Khám phá những câu chuyện hấp dẫn thuộc thể loại ${genreName}. Đọc ngay tại Truyenhayy.online`,
+            title: `Truyện ${genreName} Hay Nhất - Đọc Manga Manhwa ${genreName} 2025`,
+            description: `Top 200+ truyện ${genreName.toLowerCase()} hay nhất, mới nhất. Đọc manga, manhwa, manhua ${genreName.toLowerCase()} online miễn phí tại Truyenhayy.online`,
+            url: `/the-loai/${slug}`,
+            type: 'website',
             images: [
                 {
-                    url: '/logo-all.png',
-                    width: 400,
-                    height: 200,
+                    url: '/logothayy.png',
+                    width: 1200,
+                    height: 630,
+                    alt: `Truyện ${genreName} - Truyenhayy.online`,
                 },
             ],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: `Truyện ${genreName} Hay Nhất - Truyenhayy.online`,
+            description: `Top 200+ truyện ${genreName.toLowerCase()} hay nhất. Đọc miễn phí tại Truyenhayy.online`,
+            images: ['/logothayy.png'],
         },
     };
 }

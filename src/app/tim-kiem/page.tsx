@@ -21,14 +21,18 @@ export async function generateMetadata({
 }) {
     const keyword = (await searchParams).keyword || '';
     return {
-        title: `${keyword} - Kết quả tìm kiếm | Truyenhayy`,
-        description: `Tìm truyện tranh - Tất cả truyện đều có thể tìm thấy tại Truyenhayy`,
+        title: `Tìm Kiếm "${keyword}" - Kết Quả Tìm Truyện Tranh | Truyenhayy`,
+        description: `Kết quả tìm kiếm cho "${keyword}". Tìm kiếm và đọc manga, manhwa, manhua miễn phí tại Truyenhayy.online. Hàng nghìn truyện tranh đang chờ bạn khám phá!`,
         keywords: [
-            `tìm truyện tranh`,
-            `tìm truyện tiếng việt`,
-            `đọc truyện tranh`,
-            `tìm ${keyword} với truyenhayy.online`,
-            `kết quả tìm kiếm ${keyword} từ truyenhayy.online`,
+            `tim kiem truyen tranh`,
+            `tim truyen ${keyword}`,
+            `search manga`,
+            `search manhwa`,
+            `tim kiem ${keyword}`,
+            `doc truyen ${keyword}`,
+            `truyen tranh ${keyword}`,
+            `tim truyen tranh online`,
+            `search truyen tranh`,
         ],
         // Prevent search pages from being indexed (SEO best practice)
         robots: {
@@ -45,10 +49,25 @@ export async function generateMetadata({
             },
         },
         openGraph: {
-            title: `${keyword} - Kết quả tìm kiếm | Truyenhayy`,
-            description: `Tìm truyện tranh - Tất cả truyện đều có thể tìm thấy tại Truyenhayy`,
+            title: `Tìm Kiếm "${keyword}" - Truyenhayy.online`,
+            description: `Kết quả tìm kiếm cho "${keyword}". Tìm và đọc truyện tranh miễn phí tại Truyenhayy.online`,
+            url: `/tim-kiem?keyword=${keyword}`,
+            type: 'website',
             images: [
                 {
+                    url: '/logothayy.png',
+                    width: 1200,
+                    height: 630,
+                    alt: 'Tìm kiếm truyện tranh - Truyenhayy.online',
+                },
+            ],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: `Tìm Kiếm "${keyword}" - Truyenhayy.online`,
+            description: `Kết quả tìm kiếm cho "${keyword}"`,
+            images: ['/logothayy.png'],
+        },
                     url: '/logo-all.png',
                     width: 400,
                     height: 200,
