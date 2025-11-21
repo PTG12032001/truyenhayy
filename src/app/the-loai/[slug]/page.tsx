@@ -6,6 +6,7 @@ import { Suspense } from 'react';
 
 // ** Components
 import DynamicPageStatus from '@/components/common/DynamicPageStatus';
+import { BreadcrumbSchema, ItemListSchema } from '@/components/seo/StructuredData';
 
 // ** Modules
 import GenreHero from '@/modules/the-loai/GenreHero';
@@ -100,9 +101,28 @@ const Genre = async ({
     const genreDetail = await getGenreDetail(slug);
     const genreName = genreDetail?.data?.titlePage || 'Tất cả';
     const totalComics = genreDetail?.data?.params?.pagination?.totalItems || 0;
+    const comicItems = genreDetail?.data?.items || [];
 
     return (
         <>
+            {/* Schema Markup for SEO */}
+            <BreadcrumbSchema
+                items={[
+                    { name: 'Trang chủ', url: 'https://truyenhayy.online' },
+                    { name: 'Thể loại', url: 'https://truyenhayy.online/the-loai' },
+                    { name: genreName, url: `https://truyenhayy.online/the-loai/${slug}` },
+                ]}
+            />
+            <ItemListSchema
+                name={`Truyện ${genreName}`}
+                url={`https://truyenhayy.online/the-loai/${slug}`}
+                items={comicItems.slice(0, 20).map((comic: any) => ({
+                    name: comic.name || '',
+                    url: `https://truyenhayy.online/truyen-tranh/${comic.slug}`,
+                    image: comic.thumb_url ? `https://img.otruyenapi.com/uploads/comics/${comic.thumb_url}` : undefined,
+                }))}
+            />
+            
             {/* Hero Section with Stats */}
             <GenreHero genreName={genreName} totalComics={totalComics} />
 

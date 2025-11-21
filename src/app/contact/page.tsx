@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { Mail, MessageSquare, Phone, MapPin, Send, Clock } from 'lucide-react';
+import { FAQSchema } from '@/components/seo/StructuredData';
 
 export const metadata: Metadata = {
     title: 'Liên hệ',
@@ -8,6 +9,29 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
     return (
+        <>
+            {/* FAQ Schema for SEO */}
+            <FAQSchema
+                questions={[
+                    {
+                        question: 'Làm sao để báo cáo nội dung vi phạm bản quyền?',
+                        answer: 'Vui lòng gửi email cho chúng tôi tại support@truyenhayy.online với thông tin chi tiết về nội dung vi phạm, bao gồm link và bằng chứng sở hữu bản quyền.'
+                    },
+                    {
+                        question: 'Website có thu phí không?',
+                        answer: 'Website hoàn toàn miễn phí cho tất cả người dùng. Chúng tôi không thu bất kỳ khoản phí nào.'
+                    },
+                    {
+                        question: 'Làm sao để góp ý cải thiện website?',
+                        answer: 'Chúng tôi rất mong nhận được ý kiến đóng góp từ bạn. Hãy gửi email hoặc liên hệ qua số điện thoại +84 123 456 789 để chia sẻ ý tưởng của bạn.'
+                    },
+                    {
+                        question: 'Tại sao một số truyện không tải được?',
+                        answer: 'Có thể do nguồn gốc bị lỗi hoặc đã bị gỡ bỏ. Vui lòng báo cáo cho chúng tôi qua email support@truyenhayy.online để kiểm tra và khắc phục.'
+                    },
+                ]}
+            />
+            
         <div className="min-h-screen wrapper py-12">
             {/* Header */}
             <div className="text-center mb-12">
@@ -162,5 +186,6 @@ export default function ContactPage() {
                 </div>
             </div>
         </div>
+        </>
     );
 }

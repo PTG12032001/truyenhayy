@@ -6,6 +6,7 @@ import Link from 'next/link';
 
 // ** Components
 import ComicImage from '@/components/common/ComicImage';
+import { ComicSchema, BreadcrumbSchema } from '@/components/seo/StructuredData';
 
 // ** Shadcn ui
 import {
@@ -111,6 +112,25 @@ const DetailPage = async ({
     const lastestChapter = chapters?.slice(-1)[0]?.chapter_name;
 
     return (
+        <>
+            {/* Schema Markup for SEO */}
+            <ComicSchema
+                name={data?.name || ''}
+                url={`https://truyenhayy.online/truyen-tranh/${slug}`}
+                image={`${response?.data?.APP_DOMAIN_CDN_IMAGE}/uploads/comics/${data?.thumb_url}`}
+                description={data?.content?.replace(/<[^>]*>/g, '').substring(0, 200) || ''}
+                author={data?.author || []}
+                genre={data?.category?.map(c => c.name) || []}
+                datePublished={data?.updatedAt}
+            />
+            <BreadcrumbSchema
+                items={[
+                    { name: 'Trang chủ', url: 'https://truyenhayy.online' },
+                    { name: 'Truyện tranh', url: 'https://truyenhayy.online/truyen-tranh' },
+                    { name: data?.name || '', url: `https://truyenhayy.online/truyen-tranh/${slug}` },
+                ]}
+            />
+            
         <div className="min-h-screen bg-gradient-to-b from-background via-purple-50/20 to-background dark:from-secondary dark:via-purple-950/10 dark:to-secondary pb-20">
             <section className="wrapper flex flex-col items-center sm:items-stretch sm:flex-row gap-7 p-6 md:p-8 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-gray-200 dark:border-slate-800 mt-6">
                 <div className="relative group">
@@ -292,6 +312,7 @@ const DetailPage = async ({
                 </section>
             </section>
         </div>
+        </>
     );
 };
 
