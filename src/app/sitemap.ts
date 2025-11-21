@@ -33,11 +33,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ...(comingSoonComics || []),
     ].filter(Boolean);
     
-    // Fetch comics from top 10 popular genres to get more coverage
-    const topGenreSlugs = ['ngon-tinh', 'action', 'manhwa', 'manga', 'manhua', 'romance', 'fantasy', 'drama', 'comedy', 'adventure'];
-    const genreComicsPromises = topGenreSlugs
-        .filter(slug => dataGenres.some(g => g.slug === slug))
-        .map(slug => getListCategoryComic(`the-loai/${slug}`, 1).catch(() => ({ data: { items: [] } })));
+    // Fetch comics from top genres with smart pagination
+    // Top 5 most popular genres: fetch 2 pages each (48 comics)
+    // Other 5 genres: fetch 1 page each (24 comics)
+    // Total: ~360 items → ~280 unique after deduplication
+    const topGenreSlugs = ['ngon-tinh', 'action', 'manhwa', 'manga', 'manhua'];
+    const otherGenreSlugs = ['romance', 'fantasy', 'drama', 'comedy', 'adventure'];
+    
+    const genreComicsPromises = [
+        // Fetch 2 pages for top 5 genres
+        ...topGenreSlugs
+            .filter(slug => dataGenres.some(g => g.slug === slug))
+            .flatMap(slug => [
+                getListCategoryComic(`the-loai/${slug}`, 1).catch(() => ({ data: { items: [] } })),
+                getListCategoryComic(`the-loai/${slug}`, 2).catch(() => ({ data: { items: [] } })),
+            ]),
+        // Fetch 1 page for other 5 genres
+        ...otherGenreSlugs
+            .filter(slug => dataGenres.some(g => g.slug === slug))
+            .map(slug => getListCategoryComic(`the-loai/${slug}`, 1).catch(() => ({ data: { items: [] } }))),
+    ];
     
     const genreComicsResponses = await Promise.all(genreComicsPromises);
     const genreComics = genreComicsResponses.flatMap(res => {
