@@ -19,7 +19,7 @@ import removeExtension from '@/utils/removeExtension';
 import DynamicPageStatusSkeleton from '@/skeleton/DynamicPageStatusSkeleton';
 
 // ** action service
-import { getGenreDetail, getGenres } from '@/lib/actions/dynamic.page';
+import { getGenreDetail, getGenres, getListCategoryComic } from '@/lib/actions/dynamic.page';
 
 export async function generateMetadata({
     params,
@@ -101,7 +101,10 @@ const Genre = async ({
     const genreDetail = await getGenreDetail(slug);
     const genreName = genreDetail?.data?.titlePage || 'Tất cả';
     const totalComics = genreDetail?.data?.params?.pagination?.totalItems || 0;
-    const comicItems = genreDetail?.data?.items || [];
+    
+    // Fetch comics list for schema
+    const comicsResponse = await getListCategoryComic(`the-loai/${slug}`, pageQuery);
+    const comicItems = comicsResponse?.data?.items || [];
 
     return (
         <>
