@@ -2,7 +2,7 @@
 import type { MetadataRoute } from 'next'
 
 //  ** Action services
-import { getGenres, getGenreDetail } from '@/lib/actions/dynamic.page';
+import { getGenres, getListCategoryComic } from '@/lib/actions/dynamic.page';
 import { getListNew, getListHome, getListPublishing, getListComplete, getListComingSoon } from '@/lib/actions/home';
 
 // Revalidate sitemap every 24 hours (86400 seconds) to stay within Vercel free tier
@@ -37,11 +37,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const topGenreSlugs = ['ngon-tinh', 'action', 'manhwa', 'manga', 'manhua', 'romance', 'fantasy', 'drama', 'comedy', 'adventure'];
     const genreComicsPromises = topGenreSlugs
         .filter(slug => dataGenres.some(g => g.slug === slug))
-        .map(slug => getGenreDetail(slug).catch(() => ({ data: { items: [] } })));
+        .map(slug => getListCategoryComic(`the-loai/${slug}`, 1).catch(() => ({ data: { items: [] } })));
     
     const genreComicsResponses = await Promise.all(genreComicsPromises);
     const genreComics = genreComicsResponses.flatMap(res => {
-        const items = (res as any)?.data?.items || [];
+        const items = res?.data?.items || [];
         return Array.isArray(items) ? items : [];
     });
     
