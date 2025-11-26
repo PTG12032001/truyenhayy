@@ -75,8 +75,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         return hasChapters && goodStatus;
     });
     
-    // Priority 1: New comics (recently updated)
-    const newComics = [...qualityComics]
+    // Priority 1: Recently updated comics
+    const recentlyUpdatedComics = [...qualityComics]
         .sort((a: any, b: any) => {
             const dateA = new Date(a.updatedAt || 0).getTime();
             const dateB = new Date(b.updatedAt || 0).getTime();
@@ -90,7 +90,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         .slice(0, 100);
     
     // Priority 3: Completed comics (full content)
-    const completeComics = [...qualityComics]
+    const completedComics = [...qualityComics]
         .filter((c: any) => c.status === 'completed')
         .sort((a: any, b: any) => {
             const dateA = new Date(a.updatedAt || 0).getTime();
@@ -101,7 +101,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     
     // Merge and deduplicate by slug, take top 250 QUALITY comics
     const dataHome = Array.from(
-        new Map([...newComics, ...hotComics, ...completeComics]
+        new Map([...recentlyUpdatedComics, ...hotComics, ...completedComics]
             .map((comic: any) => [comic.slug, comic])).values()
     ).slice(0, 250);
     
