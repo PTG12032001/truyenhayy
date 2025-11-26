@@ -1,0 +1,378 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #fff !important;
+}
+
+@layer base {
+    :root {
+        /* Modern light theme with better contrast */
+        --background: 0 0% 99%;
+        --foreground: 220 13% 9%;
+        --card: 0 0% 100%;
+        --card-foreground: 220 13% 9%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 220 13% 9%;
+        --primary: 262 83% 58%; /* Modern purple */
+        --primary-foreground: 0 0% 100%;
+        --secondary: 220 7% 97%;
+        --secondary-foreground: 220 13% 9%;
+        --muted: 220 7% 97%;
+        --muted-foreground: 220 9% 46%;
+        --accent: 217 91% 60%; /* Modern blue accent */
+        --accent-foreground: 0 0% 100%;
+        --destructive: 0 84% 60%;
+        --destructive-foreground: 0 0% 100%;
+        --border: 220 7% 93%;
+        --input: 220 7% 93%;
+        --ring: 262 83% 58%;
+        --radius: 0.75rem;
+        
+        /* Custom brand colors */
+        --brand-gradient: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #EC4899 100%);
+        --brand-blue: 217 91% 60%;
+        --brand-purple: 262 83% 58%;
+        --brand-pink: 329 86% 70%;
+    }
+
+    .dark {
+        /* Modern dark theme */
+        --background: 220 13% 9%;
+        --foreground: 220 7% 97%;
+        --card: 220 13% 12%;
+        --card-foreground: 220 7% 97%;
+        --popover: 220 13% 12%;
+        --popover-foreground: 220 7% 97%;
+        --primary: 262 83% 70%; /* Brighter purple for dark mode */
+        --primary-foreground: 220 13% 9%;
+        --secondary: 220 13% 15%;
+        --secondary-foreground: 220 7% 97%;
+        --muted: 220 13% 15%;
+        --muted-foreground: 220 9% 65%;
+        --accent: 217 91% 70%; /* Brighter blue for dark mode */
+        --accent-foreground: 220 13% 9%;
+        --destructive: 0 84% 65%;
+        --destructive-foreground: 0 0% 100%;
+        --border: 220 13% 20%;
+        --input: 220 13% 20%;
+        --ring: 262 83% 70%;
+        
+        /* Custom brand colors for dark mode */
+        --brand-blue: 217 91% 70%;
+        --brand-purple: 262 83% 70%;
+        --brand-pink: 329 86% 75%;
+    }
+}
+
+@layer base {
+    :root {
+        --primary: 0, 0%, 100%;
+        --secondary: 0, 0%, 13%;
+    }
+
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+
+    #nprogress .bar {
+        z-index: 9999 !important;
+        background: #32aaff !important;
+    }
+}
+
+@layer utilities {
+    .wrapper {
+        width: 1160px;
+        max-width: calc(100% - 100px);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @media (max-width: 640px) {
+        .wrapper {
+            max-width: calc(100% - 60px);
+        }
+    }
+
+    body.modal-scrollbar-hidden::-webkit-scrollbar, .scroll-hidden::-webkit-scrollbar {
+        display: none;
+    }
+
+
+    .transition-w-b {
+        transition: width 150ms ease-in-out, border-color 150ms ease-in-out;
+    }
+
+    .custom-scroll::-webkit-scrollbar {
+        width: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+        background-color: #E5E7EB;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+        background-color: #D1D5DB;
+    }
+
+    /* Modern utilities for Truyenhayy.online */
+    .glass-effect {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .dark .glass-effect {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    }
+
+    .gradient-text {
+        background: linear-gradient(135deg, #3B82F6, #8B5CF6, #EC4899);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% 200%;
+        animation: gradient-shift 3s ease infinite;
+    }
+
+    @keyframes gradient-shift {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+    }
+
+    .hover-lift {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hover-lift:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .modern-card {
+        border-radius: 12px;
+        border: 1px solid hsl(var(--border));
+        background: hsl(var(--card));
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .modern-card:hover {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        border-color: hsl(var(--primary));
+    }
+
+    .modern-button {
+        background: linear-gradient(135deg, hsl(var(--brand-blue)), hsl(var(--brand-purple)));
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        padding: 0.75rem 1.5rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+    }
+
+    .modern-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+    }
+
+    /* Modern grid layouts */
+    .modern-grid {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+
+    @media (max-width: 640px) {
+        .modern-grid {
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 1rem;
+        }
+    }
+
+    /* Enhanced scrollbars */
+    .modern-scroll::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    .modern-scroll::-webkit-scrollbar-track {
+        background: hsl(var(--muted));
+        border-radius: 4px;
+    }
+
+    .modern-scroll::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+        border-radius: 4px;
+        border: 1px solid hsl(var(--border));
+    }
+
+    .modern-scroll::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--primary)));
+    }
+
+    /* Stable gradient text that doesn't disappear on hover */
+    .gradient-text {
+        background: linear-gradient(135deg, 
+            hsl(var(--primary)) 0%, 
+            hsl(var(--accent)) 50%, 
+            #ec4899 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        transition: all 0.3s ease;
+    }
+
+    .gradient-text:hover {
+        filter: brightness(1.1) saturate(1.2);
+        transform: translateY(-1px);
+    }
+
+    /* Fallback for browsers that don't support background-clip */
+    @supports not (-webkit-background-clip: text) {
+        .gradient-text {
+            color: hsl(var(--primary));
+            background: none;
+        }
+        
+        .gradient-text:hover {
+            color: hsl(var(--accent));
+        }
+    }
+
+    /* Mobile optimizations */
+    @media (max-width: 768px) {
+        .hover-lift:hover {
+            transform: none;
+        }
+        
+        .modern-card:hover {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Simplify gradient on mobile for better performance */
+        .gradient-text {
+            color: hsl(var(--primary));
+            background: none;
+            -webkit-text-fill-color: initial;
+        }
+    }
+
+    /* New animations for genre page */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes gradient-x {
+        0%, 100% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0) translateX(0);
+            opacity: 0;
+        }
+        10% {
+            opacity: 0.3;
+        }
+        50% {
+            transform: translateY(-100px) translateX(50px);
+            opacity: 0.5;
+        }
+        90% {
+            opacity: 0.3;
+        }
+    }
+
+    .animate-gradient-x {
+        background-size: 200% 200%;
+        animation: gradient-x 15s ease infinite;
+    }
+
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
+    }
+
+    /* Hide scrollbar for horizontal scroll */
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    /* Smooth section transitions - blend backgrounds */
+    section {
+        position: relative;
+        isolation: isolate;
+    }
+
+    section::before {
+        content: '';
+        position: absolute;
+        inset: -50px 0;
+        background: linear-gradient(to bottom, transparent 0%, transparent 100%);
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    /* Smooth blend for alternating sections */
+    section:nth-child(even) {
+        position: relative;
+    }
+
+    section:nth-child(even)::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        right: 0;
+        height: 150px;
+        background: linear-gradient(to bottom, transparent, hsl(var(--background) / 0.5));
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    section:nth-child(odd)::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        right: 0;
+        height: 150px;
+        background: linear-gradient(to bottom, transparent, hsl(var(--secondary) / 0.3));
+        pointer-events: none;
+        z-index: 1;
+    }
+}
