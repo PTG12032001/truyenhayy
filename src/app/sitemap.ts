@@ -68,42 +68,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         new Map(allComics.map((comic: any) => [comic.slug, comic])).values()
     );
     
-    // Filter for QUALITY comics only (must have chapters & good status)
-    const qualityComics = uniqueComics.filter((comic: any) => {
-        const hasChapters = comic.chaptersLatest && comic.chaptersLatest.length >= 5;
-        const goodStatus = ['publishing', 'completed'].includes(comic.status);
-        return hasChapters && goodStatus;
-    });
-    
-    // Priority 1: Recently updated comics
-    const recentlyUpdatedComics = [...qualityComics]
+    // Take top 300 comics sorted by updatedAt (most recent first)
+    // This ensures we always have comics even if API structure varies
+    const dataHome = [...uniqueComics]
         .sort((a: any, b: any) => {
             const dateA = new Date(a.updatedAt || 0).getTime();
             const dateB = new Date(b.updatedAt || 0).getTime();
             return dateB - dateA;
         })
-        .slice(0, 100);
-    
-    // Priority 2: Hot comics (many chapters = popular)
-    const hotComics = [...qualityComics]
-        .filter((c: any) => c.chaptersLatest && c.chaptersLatest.length > 10)
-        .slice(0, 100);
-    
-    // Priority 3: Completed comics (full content)
-    const completedComics = [...qualityComics]
-        .filter((c: any) => c.status === 'completed')
-        .sort((a: any, b: any) => {
-            const dateA = new Date(a.updatedAt || 0).getTime();
-            const dateB = new Date(b.updatedAt || 0).getTime();
-            return dateB - dateA;
-        })
-        .slice(0, 80);
-    
-    // Merge and deduplicate by slug, take top 250 QUALITY comics
-    const dataHome = Array.from(
-        new Map([...recentlyUpdatedComics, ...hotComics, ...completedComics]
-            .map((comic: any) => [comic.slug, comic])).values()
-    ).slice(0, 250);
+        .slice(0, 300);
     
     // Generate genre URLs
     const dataGenreUrls = dataGenres.map((genre) => ({
