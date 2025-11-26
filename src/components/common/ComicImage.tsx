@@ -62,6 +62,7 @@ const ComicImage = React.forwardRef<HTMLImageElement, ComicImageProps>(
                 height={height}
                 sizes="(max-width: 50px) 2vw, max-width: 1920px) 100px)"
                 quality="60"
+                loading="lazy"
                 className={cn(comicImageVariants({ size, rounded, className }))}
                 {...props}
                 alt={props.alt || props.title || "Comic image"}

@@ -46,10 +46,13 @@ export async function generateMetadata({
     const detail: IDetail = res?.data?.item;
     const chapters = detail?.chapters || [];
     const latestChapter = chapters[0]?.chapter_name || '';
+    const totalChapters = chapters.length;
+    const statusText = detail?.status === 'completed' ? 'Hoàn Thành' : 'Đang Cập Nhật';
+    const genreNames = detail?.category?.map(c => c.name).join(', ') || '';
 
     return {
-        title: `${comicName} - Đọc Truyện ${comicName} Full Tiếng Việt Mới Nhất | Truyenhayy`,
-        description: `Đọc truyện tranh ${comicName} tiếng việt full mới nhất ${latestChapter ? `chương ${latestChapter}` : ''} tại Truyenhayy.online. ${detail?.content?.substring(0, 120) || 'Cập nhật nhanh nhất, hoàn toàn miễn phí, không quảng cáo.'}`,
+        title: `Đọc ${comicName}${latestChapter ? ` Chapter ${latestChapter}` : ''} Full HD - ${statusText} | Truyenhayy`,
+        description: `${comicName} - ${genreNames} - ${totalChapters} chapters. ${detail?.content?.substring(0, 100) || 'Đọc truyện tranh online miễn phí'}... Cập nhật nhanh nhất tại Truyenhayy.online`,
         keywords: [
             comicName,
             `doc ${comicName}`,
